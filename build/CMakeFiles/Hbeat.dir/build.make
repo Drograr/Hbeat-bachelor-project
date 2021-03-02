@@ -98,8 +98,8 @@ Hbeat_EXTERNAL_OBJECTS =
 
 libHbeat.so: CMakeFiles/Hbeat.dir/Hbeat.cpp.o
 libHbeat.so: CMakeFiles/Hbeat.dir/build.make
-libHbeat.so: /home/dirkx/LSL/liblsl-1.14.0/build/liblsl.so.1.14.0
 libHbeat.so: /usr/lib/libobs.so.0
+libHbeat.so: /home/dirkx/LSL/liblsl-1.14.0/build/liblsl.so.1.14.0
 libHbeat.so: CMakeFiles/Hbeat.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/dirkx/projet bachelord/proj/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module libHbeat.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Hbeat.dir/link.txt --verbose=$(VERBOSE)

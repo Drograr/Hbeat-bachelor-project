@@ -1,9 +1,11 @@
-#include <obs-internal.h>
+
 #include <obs-module.h>
-#include "win-serial-reader.h"
 #include <lsl_cpp.h>
 #include <vector>
 #include <iostream>
+#include <obs.h>
+#include<stdlib.h>
+#include<stdio.h>
 
 #define blog(log_level, format, ...) \
 	blog(log_level, "[pulse_sensor: '%s'] " format, \
@@ -25,43 +27,31 @@ struct pulse_sensor {
 // This is the sensor data which is fetched through a separate thread.
 struct pulse_data {
 	int bpm;
-	//int signal;
-	//int IBI;
 	int bpmTopRecord;
 };
 
-void* read_bpm_thread(struct pulse_sensor *sensor) {
-	//HANDLE port = open_com_port(sensor->comPort);
+ void* read_bpm_thread(struct pulse_sensor *sensor) {
 
-//	if (port == NULL) {
-	//	sensor->updateThread = false;
-		//blog(LOG_WARNING, "Failed connect.");
-		//return NULL;
-	//}
 
-	std::vector<stream_info> results = resolve_stream("name", argc > 1 ? argv[1] : "SimpleStream");
+using namespace lsl;
+	std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
 	stream_inlet inlet(results[0]);
 
-	while (sensor->updateThread) {
-		using namespace lsl;
 
-		// resolve the stream of interest & make an inlet to get data from the first result
-		std::vector<stream_info> results = resolve_stream("name", argc > 1 ? argv[1] : "SimpleStream");
-		stream_inlet inlet(results[0]);
+
 
 		// receive data & time stamps forever (not displaying them here)
 		std::vector<int> sample;
-		while (true) {
+	while (sensor->updateThread) {
 		inlet.pull_sample(sample);
-		bpm = sample.front();
+		&sensor->sensor_data->bpm;
 	}
-
-	if (!close_com_port(port)) {
-		blog(LOG_WARNING, "Failed to close COM port.");
-	}
-
-	return NULL;
+return NULL;
 }
+
+
+
+
 
 static void start_thread(struct pulse_sensor *sensor) {
 	sensor->updateThread = true;
@@ -77,7 +67,7 @@ static void stop_serial_thread(struct pulse_sensor *sensor) {
 	}
 }
 
-static void pulse_sensor_defaults(obs_data_t *settings) {
+static void *pulse_sensor_defaults(obs_data_t *settings) {
 	obs_data_set_default_bool(settings, "unload", true);
 	obs_data_set_default_bool(settings, "topheartrate", false);
 //	obs_data_set_default_string(settings, "comport", "COM4");
@@ -96,18 +86,18 @@ static void *pulse_sensor_create(obs_data_t *settings, obs_source_t *source) {
 	return sensor;
 }
 
-void enum_active_sources(void *data, obs_source_enum_proc_t enum_callback, void *param) {
+void enum_active_sources(void* *data, obs_source_enum_proc_t enum_callback, void* *param) {
 	struct pulse_sensor *context = data;
 
 	enum_callback(context->source, context->textSource, param);
 }
 
-static uint32_t pulse_sensor_getwidth(void *data) {
+static uint32_t pulse_sensor_getwidth(void* *data) {
 	struct pulse_sensor *sensor = data;
 	return obs_source_get_width(sensor->textSource);
 }
 
-static uint32_t pulse_sensor_getheight(void *data) {
+static uint32_t pulse_sensor_getheight(void* *data) {
 	struct pulse_sensor *sensor = data;
 	return obs_source_get_height(sensor->textSource);
 }
@@ -234,7 +224,7 @@ static struct obs_source_info pulse_sensor_info = {
 
 
 OBS_DECLARE_MODULE()
-OBS_MODULE_USE_DEFAULT_LOCALE("win-pulse-sensor-amped", "en-US")
+//OBS_MODULE_USE_DEFAULT_LOCALE("win-pulse-sensor-amped", "en-US")
 
 bool obs_module_load(void)
 {

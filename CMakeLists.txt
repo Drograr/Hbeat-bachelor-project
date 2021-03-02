@@ -13,6 +13,11 @@ find_package(LSL 1.13.0 REQUIRED
       "${CMAKE_CURRENT_LIST_DIR}/../../LSL/liblsl/build/install"
       PATH_SUFFIXES share/LSL
 			)
+get_filename_component(LSL_PATH ${LSL_CONFIG} DIRECTORY)
+message(STATUS "Found LSL lib in ${LSL_PATH}")
+message(STATUS "LSL BIN DIR: ${liblsl_BINARY_DIR} & ${LIBLSL_BINARY_DIR}")
+
+
 find_package(Threads)
 
 add_library(Hbeat MODULE
@@ -20,6 +25,6 @@ add_library(Hbeat MODULE
 target_link_libraries(Hbeat
       libobs
 			LSL::lsl
-      ${LIBOBS_LIBRARIES}
-			${lsl-obs-plugin_PLATFORM_DEPS}
+      
 			)
+

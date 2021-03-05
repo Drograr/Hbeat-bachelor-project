@@ -30,52 +30,57 @@ struct pulse_data {
 	int bpmTopRecord;
 };
 
- void* read_bpm_thread(struct pulse_sensor *sensor) {
+ //void* read_bpm_thread(struct pulse_sensor *sensor) {
+//int a;
 
-
-using namespace lsl;
-	std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
-	stream_inlet inlet(results[0]);
+//using namespace lsl;
+	//std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
+	//stream_inlet inlet(results[0]);
 
 
 
 
 		// receive data & time stamps forever (not displaying them here)
-		std::vector<int> sample;
-	while (sensor->updateThread) {
-		inlet.pull_sample(sample);
-		&sensor->sensor_data->bpm;
-	}
-return NULL;
-}
+		//std::vector<int> sample;
+	//while (sensor->updateThread) {
+		//inlet.pull_sample(sample);
+    //a = sample.front()
+
+		//&sensor->sensor_data->bpm  << a;
+
+
+
+	//}
+//return NULL;
+//}
 
 
 
 
 
-static void start_thread(struct pulse_sensor *sensor) {
-	sensor->updateThread = true;
-	if (pthread_create(&sensor->thread, NULL, read_bpm_thread, sensor)) {
-		blog(LOG_WARNING, "Failed to create thread for reading  data.");
-	}
-}
+//static void start_thread(struct pulse_sensor *sensor) {
+	//sensor->updateThread = true;
+	//if (pthread_create(&sensor->thread, NULL, read_bpm_thread, sensor)) {
+		//blog(LOG_WARNING, "Failed to create thread for reading  data.");
+	//}
+//}
 
-static void stop_serial_thread(struct pulse_sensor *sensor) {
-	sensor->updateThread = false;
-	if (pthread_join(sensor->thread, NULL)) {
-		blog(LOG_WARNING, "Failed to join  thread.");
-	}
-}
+//static void stop_serial_thread(struct pulse_sensor *sensor) {
+	//sensor->updateThread = false;
+	//if (pthread_join(sensor->thread, NULL)) {
+		//blog(LOG_WARNING, "Failed to join  thread.");
+	//}
+//}
 
 static void *pulse_sensor_defaults(obs_data_t *settings) {
 	obs_data_set_default_bool(settings, "unload", true);
 	obs_data_set_default_bool(settings, "topheartrate", false);
-//	obs_data_set_default_string(settings, "comport", "COM4");
+
 }
 
-static void *pulse_sensor_create(obs_data_t *settings, obs_source_t *source) {
-	struct pulse_sensor *sensor = bzalloc(sizeof(struct pulse_sensor));
-	sensor->sensor_data = bzalloc(sizeof(struct pulse_data));
+static void* pulse_sensor_create(obs_data_t *settings, obs_source_t *source) {
+	struct pulse_sensor* sensor = (struct pulse_sensor*) bzalloc(sizeof(struct pulse_sensor));
+	sensor->sensor_data = (struct pulse_data*) bzalloc(sizeof(struct pulse_data));
 	sensor->source = source;
 	const char *text_source_id = "text_ft2_source\0";
 	//sensor->comPort = obs_data_get_string(settings, "comport");
@@ -87,23 +92,23 @@ static void *pulse_sensor_create(obs_data_t *settings, obs_source_t *source) {
 }
 
 void enum_active_sources(void* *data, obs_source_enum_proc_t enum_callback, void* *param) {
-	struct pulse_sensor *context = data;
+	struct pulse_sensor *context = (struct pulse_sensor*) data;
 
 	enum_callback(context->source, context->textSource, param);
 }
 
 static uint32_t pulse_sensor_getwidth(void* *data) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor =(struct pulse_sensor*) data;
 	return obs_source_get_width(sensor->textSource);
 }
 
 static uint32_t pulse_sensor_getheight(void* *data) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor = (struct pulse_sensor*) data;
 	return obs_source_get_height(sensor->textSource);
 }
 
 static void pulse_sensor_tick(void *data, float seconds) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor = (struct pulse_sensor*) data;
 
 	if (!obs_source_showing(sensor->source))
 		return;
@@ -116,9 +121,10 @@ static void pulse_sensor_tick(void *data, float seconds) {
 		char bpmBuffer[1024];
 		char bpmTopRecordBuffer[1024];
 
-		itoa(sensor->sensor_data->bpm, bpmBuffer, 10);
-		itoa(sensor->sensor_data->bpmTopRecord, bpmTopRecordBuffer, 10);
-
+		//itoa(sensor->sensor_data->bpm, bpmBuffer, 10);
+		//itoa(sensor->sensor_data->bpmTopRecord, bpmTopRecordBuffer, 10);
+    std::sprintf(bpmBuffer,"%d",sensor->sensor_data->bpm);
+    std::sprintf( bpmTopRecordBuffer,"%d",sensor->sensor_data-> bpmTopRecord);
 
 		if (sensor->showTopHeartRate) {
 			snprintf(bpmBuffer, sizeof(bpmBuffer), "%s\r\n%s", bpmBuffer, bpmTopRecordBuffer);
@@ -133,9 +139,9 @@ static void pulse_sensor_tick(void *data, float seconds) {
 		//	sensor->sensor_data->IBI == 0;
 
 
-		bool abovePulseLimit = sensor->sensor_data->bpm > MAX_BPM;
+		//bool abovePulseLimit = sensor->sensor_data->bpm > MAX_BPM;
 
-		if ( abovePulseLimit || !sensor->updateThread) {
+		if ( !sensor->updateThread) {
 			obs_data_set_string(sensor->textSource->context.settings, "text", "N/A");
 			sensor->sensor_data->bpmTopRecord = 0;
 		}
@@ -148,7 +154,7 @@ static void pulse_sensor_tick(void *data, float seconds) {
 }
 
 static void pulse_sensor_render(void *data, gs_effect_t *effect) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor =(struct pulse_sensor*) data;
 
 	obs_source_video_render(sensor->textSource);
 }
@@ -158,29 +164,48 @@ static const char *pulse_sensor_amped_get_name(void *unused) {
 	return obs_module_text("Hbeat");
 }
 
-static void pulse_sensor_show(void *data) {
+//static void pulse_sensor_show(void *data) {
 
-	struct pulse_sensor *sensor = data;
-	start_thread(sensor);
-}
+	//struct pulse_sensor *sensor = data;
+	//start_thread(sensor);
+//}
 
 static void pulse_sensor_update(void *data, obs_data_t *settings) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor =(struct pulse_sensor*) data;
 
-	stop_serial_thread(sensor);
+	//stop_serial_thread(sensor);
+	//si on veux eventuelement rajouter des thread : devut
+	
 
 	obs_data_set_string(sensor->textSource->context.settings, "text", "N/A");
 
 	sensor->showTopHeartRate = obs_data_get_bool(settings, "topheartrate");
-//	sensor->comPort = obs_data_get_string(settings, "comport");
 
-	start_thread(sensor);
+
+	//start_thread(sensor);
+	int a;
+
+	using namespace lsl;
+		std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
+		stream_inlet inlet(results[0]);
+
+
+
+
+			 //receive data & time stamps forever (not displaying them here)
+			std::vector<int> sample;
+
+			inlet.pull_sample(sample);
+	    a = sample.front()
+
+			&sensor->sensor_data->bpm  << a;
+
 }
 
 static void pulse_sensor_destroy(void *data) {
-	struct pulse_sensor *sensor = data;
+	struct pulse_sensor *sensor = (struct pulse_sensor*) data;
 
-	stop_serial_thread(sensor);
+	//stop_serial_thread(sensor);
 
 	bfree(sensor->sensor_data);
 	sensor->sensor_data = NULL;
@@ -193,7 +218,7 @@ static void pulse_sensor_destroy(void *data) {
 }
 
 static obs_properties_t *pulse_sensor_properties(void *unused) {
-	struct pulse_sensor *sensor = unused;
+	struct pulse_sensor *sensor = (struct pulse_sensor*) unused;
 
 	obs_properties_t *props = obs_source_properties(sensor->textSource);
 
@@ -213,7 +238,7 @@ static struct obs_source_info pulse_sensor_info = {
 	.destroy        = pulse_sensor_destroy,
 	.update         = pulse_sensor_update,
 	.get_defaults   = pulse_sensor_defaults,
-	.show           = pulse_sensor_show,
+	//.show           = pulse_sensor_show,
 	.get_width      = pulse_sensor_getwidth,
 	.get_height     = pulse_sensor_getheight,
 	.video_render   = pulse_sensor_render,

@@ -1,24 +1,21 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
+  "C"
   )
 # The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/dirkx/projet bachelord/proj/Hbeat.cpp" "/home/dirkx/projet bachelord/proj/build/CMakeFiles/Hbeat.dir/Hbeat.cpp.o"
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/dirkx/projet bachelord/proj/Hbeat.c" "/home/dirkx/projet bachelord/proj/build/CMakeFiles/Hbeat.dir/Hbeat.c.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_CXX
+set(CMAKE_TARGET_DEFINITIONS_C
   "HAVE_OBSCONFIG_H"
-  "Hbeat_EXPORTS"
-  "LSLNOAUTOLINK"
   )
 
 # The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
+set(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/include/obs"
-  "/home/dirkx/LSL/liblsl-1.14.0/include"
   )
 
 # Targets to which this target links.

@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC   -shared  -o libHbeat.so CMakeFiles/Hbeat.dir/Hbeat.c.o -Wl,-rpath,/home/dirkx/LSL/liblsl-1.14.0/build /usr/lib/libobs.so.0 /home/dirkx/LSL/liblsl-1.14.0/build/liblsl.so.1.14.0 -pthread -lLSL::lslobj 

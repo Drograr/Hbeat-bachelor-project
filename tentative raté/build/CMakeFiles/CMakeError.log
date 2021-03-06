@@ -1,0 +1,100 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_06841/fast && /usr/bin/make  -f CMakeFiles/cmTC_06841.dir/build.make CMakeFiles/cmTC_06841.dir/build
+make[1] : on entre dans le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Building C object CMakeFiles/cmTC_06841.dir/src.c.o
+/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_06841.dir/src.c.o -c "/home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp/src.c"
+Linking C executable cmTC_06841
+/snap/cmake/805/bin/cmake -E cmake_link_script CMakeFiles/cmTC_06841.dir/link.txt --verbose=1
+/usr/bin/cc -rdynamic CMakeFiles/cmTC_06841.dir/src.c.o -o cmTC_06841 
+CMakeFiles/cmTC_06841.dir/src.c.o : Dans la fonction « main » :
+src.c:(.text+0x3e) : référence indéfinie vers « pthread_create »
+src.c:(.text+0x4a) : référence indéfinie vers « pthread_detach »
+src.c:(.text+0x56) : référence indéfinie vers « pthread_cancel »
+src.c:(.text+0x67) : référence indéfinie vers « pthread_join »
+src.c:(.text+0x7b) : référence indéfinie vers « pthread_atfork »
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_06841.dir/build.make:105: recipe for target 'cmTC_06841' failed
+make[1]: *** [cmTC_06841] Error 1
+make[1] : on quitte le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Makefile:140: recipe for target 'cmTC_06841/fast' failed
+make: *** [cmTC_06841/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_9392c/fast && /usr/bin/make  -f CMakeFiles/cmTC_9392c.dir/build.make CMakeFiles/cmTC_9392c.dir/build
+make[1] : on entre dans le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Building C object CMakeFiles/cmTC_9392c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_9392c.dir/CheckFunctionExists.c.o -c /snap/cmake/805/share/cmake-3.19/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9392c
+/snap/cmake/805/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9392c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create -rdynamic CMakeFiles/cmTC_9392c.dir/CheckFunctionExists.c.o -o cmTC_9392c  -lpthreads 
+/usr/bin/ld : ne peut trouver -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_9392c.dir/build.make:105: recipe for target 'cmTC_9392c' failed
+make[1]: *** [cmTC_9392c] Error 1
+make[1] : on quitte le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Makefile:140: recipe for target 'cmTC_9392c/fast' failed
+make: *** [cmTC_9392c/fast] Error 2
+
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4bf12/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4bf12.dir/build.make CMakeFiles/cmTC_4bf12.dir/build
+make[1] : on entre dans le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Building C object CMakeFiles/cmTC_4bf12.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_4bf12.dir/CheckSymbolExists.c.o   -c "/home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c"
+Linking C executable cmTC_4bf12
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4bf12.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_4bf12.dir/CheckSymbolExists.c.o  -o cmTC_4bf12 
+CMakeFiles/cmTC_4bf12.dir/CheckSymbolExists.c.o : Dans la fonction « main » :
+CheckSymbolExists.c:(.text+0x1b) : référence indéfinie vers « pthread_create »
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_4bf12.dir/build.make:97: recipe for target 'cmTC_4bf12' failed
+make[1]: *** [cmTC_4bf12] Error 1
+make[1] : on quitte le répertoire « /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp »
+Makefile:126: recipe for target 'cmTC_4bf12/fast' failed
+make: *** [cmTC_4bf12/fast] Error 2
+
+File /home/dirkx/projet bachelord/proj/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

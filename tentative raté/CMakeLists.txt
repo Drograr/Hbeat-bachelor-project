@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 2.8)
 project(Hbeat)
 
 
 
 
 set(Hbeat_SOURCES
-      Hbeat.cpp)
+      Hbeat.c)
 find_package(LibObs REQUIRED)
 find_package(LSL 1.13.0 REQUIRED
       HINTS ${LSL_INSTALL_ROOT}
@@ -25,6 +25,5 @@ add_library(Hbeat MODULE
 target_link_libraries(Hbeat
       libobs
 			LSL::lsl
-      
-			)
 
+			)

@@ -1,4 +1,4 @@
-
+#include <obs-internal.h>
 #include <obs-module.h>
 #include <lsl_cpp.h>
 #include <vector>
@@ -175,7 +175,7 @@ static void pulse_sensor_update(void *data, obs_data_t *settings) {
 
 	//stop_serial_thread(sensor);
 	//si on veux eventuelement rajouter des thread : devut
-	
+
 
 	obs_data_set_string(sensor->textSource->context.settings, "text", "N/A");
 

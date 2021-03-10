@@ -32,12 +32,12 @@ On Debian/Ubuntu :
 git clone https://gitlab.unige.ch/sims/lsl-modules/obs-plugin.git
 cd obs-plugin
 mkdir build && cd build
-cmake -DLIBOBS_INCLUDE_DIR="<path to the libobs sub-folder in obs-studio's source code>" -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake (-DLIBOBS_INCLUDE_DIR="<path to the libobs sub-folder in obs-studio's source code>")(voir si toujours utile) -DCMAKE_INSTALL_PREFIX=/usr ..
 make -j4
-sudo make install
+sudo make install(ne marche pas et en aie pas eux besoin)
 ```
 1. Copy the `lsl_plugin.so` to /usr/lib/obs-plugins/
 2. also copy the contents of the `obsplugin/data/` directory to the `bin` directory of obs-studio (where the obs-studio executable is located)
-
+(pour l'instant il faut lancer obs depuis le bin)
 ## Using the plugin
 This plugin implements a source filter in obs. To use it select the **scene** containing the sources you wish to record and add the LSL filter to it.

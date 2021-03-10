@@ -6,283 +6,293 @@
 
 #IncludeRegexTransform: 
 
-/home/dirkx/projet bachelord/proj/Hbeat.c
-obs-internal.h
--
-obs-module.h
--
-lsl_cpp.h
--
-vector
--
-iostream
--
-obs.h
--
-stdlib.h
--
-stdio.h
+/home/dirkx/OBS/obs-studio/build/config/obsconfig.h
+
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/config.h
+
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/need_errno.h
+winsock.h
 -
 
-/usr/include/obs/callback/calldata.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/pthread.h
+windows.h
+-
+config.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/config.h
+time.h
+-
+signal.h
+-
+limits.h
+-
+need_errno.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/need_errno.h
+errno.h
+-
+sched.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/sched.h
+sys/types.h
+-
+
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/sched.h
+need_errno.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/need_errno.h
+errno.h
+-
+sys/types.h
+-
+time.h
+-
+
+/home/dirkx/OBS/obs-studio/libobs/callback/calldata.h
 string.h
 -
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 ../util/bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 
-/usr/include/obs/callback/proc.h
+/home/dirkx/OBS/obs-studio/libobs/callback/proc.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 calldata.h
-/usr/include/obs/callback/calldata.h
+/home/dirkx/OBS/obs-studio/libobs/callback/calldata.h
 
-/usr/include/obs/callback/signal.h
+/home/dirkx/OBS/obs-studio/libobs/callback/signal.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 calldata.h
-/usr/include/obs/callback/calldata.h
+/home/dirkx/OBS/obs-studio/libobs/callback/calldata.h
 
-/usr/include/obs/caption/caption.h
-eia608.h
-/usr/include/obs/caption/eia608.h
-utf8.h
-/usr/include/obs/caption/utf8.h
-xds.h
-/usr/include/obs/caption/xds.h
-
-/usr/include/obs/graphics/axisang.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/axisang.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/graphics/graphics.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/graphics.h
 ../util/bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 input.h
-/usr/include/obs/graphics/input.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/input.h
 objc/objc-runtime.h
 -
 
-/usr/include/obs/graphics/input.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/input.h
 
-/usr/include/obs/graphics/math-defs.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/math-defs.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 math.h
 -
 
-/usr/include/obs/graphics/matrix4.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/matrix4.h
 vec3.h
-/usr/include/obs/graphics/vec3.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec3.h
 vec4.h
-/usr/include/obs/graphics/vec4.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec4.h
 axisang.h
-/usr/include/obs/graphics/axisang.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/axisang.h
 
-/usr/include/obs/graphics/vec2.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec2.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 math.h
 -
 
-/usr/include/obs/graphics/vec3.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec3.h
 math-defs.h
-/usr/include/obs/graphics/math-defs.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/math-defs.h
 vec4.h
-/usr/include/obs/graphics/vec4.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec4.h
 ../util/sse-intrin.h
-/usr/include/obs/util/sse-intrin.h
+/home/dirkx/OBS/obs-studio/libobs/util/sse-intrin.h
 
-/usr/include/obs/graphics/vec4.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec4.h
 math-defs.h
-/usr/include/obs/graphics/math-defs.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/math-defs.h
 ../util/sse-intrin.h
-/usr/include/obs/util/sse-intrin.h
+/home/dirkx/OBS/obs-studio/libobs/util/sse-intrin.h
 
-/usr/include/obs/media-io/audio-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-io.h
 media-io-defs.h
-/usr/include/obs/media-io/media-io-defs.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/media-io-defs.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 ../util/util_uint64.h
-/usr/include/obs/util/util_uint64.h
+/home/dirkx/OBS/obs-studio/libobs/util/util_uint64.h
 
-/usr/include/obs/media-io/audio-resampler.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-resampler.h
 ../util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 audio-io.h
-/usr/include/obs/media-io/audio-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-io.h
 
-/usr/include/obs/media-io/frame-rate.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/frame-rate.h
 
-/usr/include/obs/media-io/media-io-defs.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/media-io-defs.h
 
-/usr/include/obs/media-io/video-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/video-io.h
 media-io-defs.h
-/usr/include/obs/media-io/media-io-defs.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/media-io-defs.h
 
-/usr/include/obs/obs-audio-controls.h
+/home/dirkx/OBS/obs-studio/libobs/obs-audio-controls.h
 obs.h
-/usr/include/obs/obs.h
+/home/dirkx/OBS/obs-studio/libobs/obs.h
 
-/usr/include/obs/obs-config.h
+/home/dirkx/OBS/obs-studio/libobs/obs-config.h
 obsconfig.h
-/usr/include/obs/obsconfig.h
+/home/dirkx/OBS/obs-studio/libobs/obsconfig.h
 
-/usr/include/obs/obs-data.h
+/home/dirkx/OBS/obs-studio/libobs/obs-data.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 media-io/frame-rate.h
-/usr/include/obs/media-io/frame-rate.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/frame-rate.h
 
-/usr/include/obs/obs-defs.h
+/home/dirkx/OBS/obs-studio/libobs/obs-defs.h
 
-/usr/include/obs/obs-encoder.h
+/home/dirkx/OBS/obs-studio/libobs/obs-encoder.h
 
-/usr/include/obs/obs-hotkey.h
+/home/dirkx/OBS/obs-studio/libobs/obs-hotkey.h
 obs-hotkeys.h
-/usr/include/obs/obs-hotkeys.h
+/home/dirkx/OBS/obs-studio/libobs/obs-hotkeys.h
 
-/usr/include/obs/obs-hotkeys.h
+/home/dirkx/OBS/obs-studio/libobs/obs-hotkeys.h
 
-/usr/include/obs/obs-interaction.h
+/home/dirkx/OBS/obs-studio/libobs/obs-interaction.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/obs-internal.h
+/home/dirkx/OBS/obs-studio/libobs/obs-internal.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 util/darray.h
-/usr/include/obs/util/darray.h
+/home/dirkx/OBS/obs-studio/libobs/util/darray.h
 util/circlebuf.h
-/usr/include/obs/util/circlebuf.h
+/home/dirkx/OBS/obs-studio/libobs/util/circlebuf.h
 util/dstr.h
-/usr/include/obs/util/dstr.h
+/home/dirkx/OBS/obs-studio/libobs/util/dstr.h
 util/threading.h
-/usr/include/obs/util/threading.h
+/home/dirkx/OBS/obs-studio/libobs/util/threading.h
 util/platform.h
-/usr/include/obs/util/platform.h
+/home/dirkx/OBS/obs-studio/libobs/util/platform.h
 util/profiler.h
-/usr/include/obs/util/profiler.h
+/home/dirkx/OBS/obs-studio/libobs/util/profiler.h
 callback/signal.h
-/usr/include/obs/callback/signal.h
+/home/dirkx/OBS/obs-studio/libobs/callback/signal.h
 callback/proc.h
-/usr/include/obs/callback/proc.h
+/home/dirkx/OBS/obs-studio/libobs/callback/proc.h
 graphics/graphics.h
-/usr/include/obs/graphics/graphics.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/graphics.h
 graphics/matrix4.h
-/usr/include/obs/graphics/matrix4.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/matrix4.h
 media-io/audio-resampler.h
-/usr/include/obs/media-io/audio-resampler.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-resampler.h
 media-io/video-io.h
-/usr/include/obs/media-io/video-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/video-io.h
 media-io/audio-io.h
-/usr/include/obs/media-io/audio-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-io.h
 obs.h
-/usr/include/obs/obs.h
+/home/dirkx/OBS/obs-studio/libobs/obs.h
 caption/caption.h
 -
 
-/usr/include/obs/obs-missing-files.h
+/home/dirkx/OBS/obs-studio/libobs/obs-missing-files.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/obs-module.h
+/home/dirkx/OBS/obs-studio/libobs/obs-module.h
 obs.h
-/usr/include/obs/obs.h
+/home/dirkx/OBS/obs-studio/libobs/obs.h
 obs-module.h
 -
 
-/usr/include/obs/obs-output.h
+/home/dirkx/OBS/obs-studio/libobs/obs-output.h
 
-/usr/include/obs/obs-properties.h
+/home/dirkx/OBS/obs-studio/libobs/obs-properties.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 obs-data.h
-/usr/include/obs/obs-data.h
+/home/dirkx/OBS/obs-studio/libobs/obs-data.h
 media-io/frame-rate.h
-/usr/include/obs/media-io/frame-rate.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/frame-rate.h
 
-/usr/include/obs/obs-service.h
+/home/dirkx/OBS/obs-studio/libobs/obs-service.h
 
-/usr/include/obs/obs-source.h
+/home/dirkx/OBS/obs-studio/libobs/obs-source.h
 obs.h
-/usr/include/obs/obs.h
+/home/dirkx/OBS/obs-studio/libobs/obs.h
 
-/usr/include/obs/obs-ui.h
+/home/dirkx/OBS/obs-studio/libobs/obs-ui.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/obs.h
+/home/dirkx/OBS/obs-studio/libobs/obs.h
 util/c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 util/bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 util/profiler.h
-/usr/include/obs/util/profiler.h
+/home/dirkx/OBS/obs-studio/libobs/util/profiler.h
 util/text-lookup.h
-/usr/include/obs/util/text-lookup.h
+/home/dirkx/OBS/obs-studio/libobs/util/text-lookup.h
 graphics/graphics.h
-/usr/include/obs/graphics/graphics.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/graphics.h
 graphics/vec2.h
-/usr/include/obs/graphics/vec2.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec2.h
 graphics/vec3.h
-/usr/include/obs/graphics/vec3.h
+/home/dirkx/OBS/obs-studio/libobs/graphics/vec3.h
 media-io/audio-io.h
-/usr/include/obs/media-io/audio-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/audio-io.h
 media-io/video-io.h
-/usr/include/obs/media-io/video-io.h
+/home/dirkx/OBS/obs-studio/libobs/media-io/video-io.h
 callback/signal.h
-/usr/include/obs/callback/signal.h
+/home/dirkx/OBS/obs-studio/libobs/callback/signal.h
 callback/proc.h
-/usr/include/obs/callback/proc.h
+/home/dirkx/OBS/obs-studio/libobs/callback/proc.h
 obs-config.h
-/usr/include/obs/obs-config.h
+/home/dirkx/OBS/obs-studio/libobs/obs-config.h
 obs-defs.h
-/usr/include/obs/obs-defs.h
+/home/dirkx/OBS/obs-studio/libobs/obs-defs.h
 obs-data.h
-/usr/include/obs/obs-data.h
+/home/dirkx/OBS/obs-studio/libobs/obs-data.h
 obs-ui.h
-/usr/include/obs/obs-ui.h
+/home/dirkx/OBS/obs-studio/libobs/obs-ui.h
 obs-properties.h
-/usr/include/obs/obs-properties.h
+/home/dirkx/OBS/obs-studio/libobs/obs-properties.h
 obs-interaction.h
-/usr/include/obs/obs-interaction.h
+/home/dirkx/OBS/obs-studio/libobs/obs-interaction.h
 obs-missing-files.h
-/usr/include/obs/obs-missing-files.h
+/home/dirkx/OBS/obs-studio/libobs/obs-missing-files.h
 obs-source.h
-/usr/include/obs/obs-source.h
+/home/dirkx/OBS/obs-studio/libobs/obs-source.h
 obs-encoder.h
-/usr/include/obs/obs-encoder.h
+/home/dirkx/OBS/obs-studio/libobs/obs-encoder.h
 obs-output.h
-/usr/include/obs/obs-output.h
+/home/dirkx/OBS/obs-studio/libobs/obs-output.h
 obs-service.h
-/usr/include/obs/obs-service.h
+/home/dirkx/OBS/obs-studio/libobs/obs-service.h
 obs-audio-controls.h
-/usr/include/obs/obs-audio-controls.h
+/home/dirkx/OBS/obs-studio/libobs/obs-audio-controls.h
 obs-hotkey.h
-/usr/include/obs/obs-hotkey.h
+/home/dirkx/OBS/obs-studio/libobs/obs-hotkey.h
 
-/usr/include/obs/obsconfig.h
-
-/usr/include/obs/util/base.h
+/home/dirkx/OBS/obs-studio/libobs/util/base.h
 stdarg.h
 -
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 base.h
-/usr/include/obs/util/base.h
+/home/dirkx/OBS/obs-studio/libobs/util/base.h
 wchar.h
 -
 string.h
 -
 
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 stddef.h
 -
 stdint.h
@@ -292,9 +302,9 @@ stdbool.h
 sys/types.h
 -
 
-/usr/include/obs/util/circlebuf.h
+/home/dirkx/OBS/obs-studio/libobs/util/circlebuf.h
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 string.h
 -
 stdlib.h
@@ -302,11 +312,11 @@ stdlib.h
 assert.h
 -
 bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 
-/usr/include/obs/util/darray.h
+/home/dirkx/OBS/obs-studio/libobs/util/darray.h
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 string.h
 -
 stdlib.h
@@ -314,19 +324,19 @@ stdlib.h
 assert.h
 -
 bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 
-/usr/include/obs/util/dstr.h
+/home/dirkx/OBS/obs-studio/libobs/util/dstr.h
 string.h
 -
 stdarg.h
 -
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 bmem.h
-/usr/include/obs/util/bmem.h
+/home/dirkx/OBS/obs-studio/libobs/util/bmem.h
 
-/usr/include/obs/util/platform.h
+/home/dirkx/OBS/obs-studio/libobs/util/platform.h
 stdio.h
 -
 wchar.h
@@ -334,19 +344,19 @@ wchar.h
 sys/types.h
 -
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/util/profiler.h
+/home/dirkx/OBS/obs-studio/libobs/util/profiler.h
 base.h
-/usr/include/obs/util/base.h
+/home/dirkx/OBS/obs-studio/libobs/util/base.h
 darray.h
-/usr/include/obs/util/darray.h
+/home/dirkx/OBS/obs-studio/libobs/util/darray.h
 
-/usr/include/obs/util/simde/check.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/check.h
 hedley.h
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 simde-diagnostic.h
-/usr/include/obs/util/simde/simde-diagnostic.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-diagnostic.h
 stdint.h
 -
 stdio.h
@@ -356,25 +366,25 @@ stdio.h
 stdio.h
 -
 debug-trap.h
-/usr/include/obs/util/simde/debug-trap.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/debug-trap.h
 string.h
 -
 
-/usr/include/obs/util/simde/debug-trap.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/debug-trap.h
 builtins.h
 -
 signal.h
 -
 
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 stdint.h
 -
 stdint.h
 -
 
-/usr/include/obs/util/simde/simde-align.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-align.h
 hedley.h
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 cstddef
 -
 stddef.h
@@ -392,29 +402,29 @@ memory
 stdio.h
 -
 
-/usr/include/obs/util/simde/simde-arch.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-arch.h
 
-/usr/include/obs/util/simde/simde-common.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-common.h
 hedley.h
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 stddef.h
 -
 stdint.h
 -
 simde-detect-clang.h
-/usr/include/obs/util/simde/simde-detect-clang.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-detect-clang.h
 simde-arch.h
-/usr/include/obs/util/simde/simde-arch.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-arch.h
 simde-features.h
-/usr/include/obs/util/simde/simde-features.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-features.h
 simde-diagnostic.h
-/usr/include/obs/util/simde/simde-diagnostic.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-diagnostic.h
 simde-math.h
-/usr/include/obs/util/simde/simde-math.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-math.h
 simde-constify.h
-/usr/include/obs/util/simde/simde-constify.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-constify.h
 simde-align.h
-/usr/include/obs/util/simde/simde-align.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-align.h
 type_traits
 -
 sys/byteorder.h
@@ -446,27 +456,27 @@ stdlib.h
 fenv.h
 -
 check.h
-/usr/include/obs/util/simde/check.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/check.h
 limits.h
 -
 
-/usr/include/obs/util/simde/simde-constify.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-constify.h
 simde-diagnostic.h
-/usr/include/obs/util/simde/simde-diagnostic.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-diagnostic.h
 
-/usr/include/obs/util/simde/simde-detect-clang.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-detect-clang.h
 
-/usr/include/obs/util/simde/simde-diagnostic.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-diagnostic.h
 hedley.h
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 simde-detect-clang.h
-/usr/include/obs/util/simde/simde-detect-clang.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-detect-clang.h
 
-/usr/include/obs/util/simde/simde-features.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-features.h
 simde-arch.h
-/usr/include/obs/util/simde/simde-arch.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-arch.h
 simde-diagnostic.h
-/usr/include/obs/util/simde/simde-diagnostic.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-diagnostic.h
 immintrin.h
 -
 nmmintrin.h
@@ -494,11 +504,11 @@ altivec.h
 loongson-mmiintrin.h
 -
 
-/usr/include/obs/util/simde/simde-math.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-math.h
 hedley.h
-/usr/include/obs/util/simde/hedley.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/hedley.h
 simde-features.h
-/usr/include/obs/util/simde/simde-features.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-features.h
 stdint.h
 -
 arm_neon.h
@@ -526,9 +536,9 @@ cfloat
 float.h
 -
 
-/usr/include/obs/util/simde/x86/mmx.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/mmx.h
 ../simde-common.h
-/usr/include/obs/util/simde/simde-common.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/simde-common.h
 mmintrin.h
 -
 arm_neon.h
@@ -540,41 +550,65 @@ stdint.h
 limits.h
 -
 
-/usr/include/obs/util/simde/x86/sse.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/sse.h
 mmx.h
-/usr/include/obs/util/simde/x86/mmx.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/mmx.h
 windows.h
 -
 
-/usr/include/obs/util/simde/x86/sse2.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/sse2.h
 sse.h
-/usr/include/obs/util/simde/x86/sse.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/sse.h
 
-/usr/include/obs/util/sse-intrin.h
+/home/dirkx/OBS/obs-studio/libobs/util/sse-intrin.h
 emmintrin.h
 -
 simde/x86/sse2.h
-/usr/include/obs/util/simde/x86/sse2.h
+/home/dirkx/OBS/obs-studio/libobs/util/simde/x86/sse2.h
 
-/usr/include/obs/util/text-lookup.h
+/home/dirkx/OBS/obs-studio/libobs/util/text-lookup.h
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 
-/usr/include/obs/util/threading-posix.h
+/home/dirkx/OBS/obs-studio/libobs/util/threading-posix.h
 
-/usr/include/obs/util/threading.h
+/home/dirkx/OBS/obs-studio/libobs/util/threading-windows.h
+intrin.h
+-
+string.h
+-
+
+/home/dirkx/OBS/obs-studio/libobs/util/threading.h
 c99defs.h
-/usr/include/obs/util/c99defs.h
+/home/dirkx/OBS/obs-studio/libobs/util/c99defs.h
 ../../deps/w32-pthreads/pthread.h
-/usr/include/deps/w32-pthreads/pthread.h
+/home/dirkx/OBS/obs-studio/deps/w32-pthreads/pthread.h
 errno.h
 -
 pthread.h
 -
 threading-windows.h
-/usr/include/obs/util/threading-windows.h
+/home/dirkx/OBS/obs-studio/libobs/util/threading-windows.h
 threading-posix.h
-/usr/include/obs/util/threading-posix.h
+/home/dirkx/OBS/obs-studio/libobs/util/threading-posix.h
 
-/usr/include/obs/util/util_uint64.h
+/home/dirkx/OBS/obs-studio/libobs/util/util_uint64.h
+
+/home/dirkx/projet bachelord/proj/tentative raté/Hbeat.c
+obs-internal.h
+-
+obs-module.h
+-
+lsl_cpp.h
+-
+vector
+-
+iostream
+-
+obs.h
+-
+stdlib.h
+-
+stdio.h
+-
 

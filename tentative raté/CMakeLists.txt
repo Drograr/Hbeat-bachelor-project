@@ -5,7 +5,7 @@ project(Hbeat)
 
 
 set(Hbeat_SOURCES
-      Hbeat.c)
+      Hbeat.cpp)
 find_package(LibObs REQUIRED)
 find_package(LSL 1.13.0 REQUIRED
       HINTS ${LSL_INSTALL_ROOT}

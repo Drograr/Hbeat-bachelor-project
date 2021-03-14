@@ -1,6 +1,6 @@
-/* Rose Defossez */
 
-/* LLS-Plugin */
+
+
 #include <obs-module.h>
 #include "obs-frontend-api.h"
 #include <obs.h>
@@ -33,7 +33,7 @@
 #define S_SHADOW "shadow"
 
 #define T_RECORD "Record"
-#define T_STREAM "Stream"
+#define T_STREAM "Streama"
 #define T_NAME  "Name"
 #define T_ID "Id"
 #define T_START "Start"
@@ -87,15 +87,12 @@ static bool lsl_plugin_start(void* data)
         return false;
 
     double framerate = video_output_get_frame_rate(obs_get_video());
-    //double framerate = lsl::IRREGULAR_RATE; //TODO consider using this to prevent LSL from interpolating data.
 
-    //lsl::stream_info info(plugin->name, "OBS frame numbers", 3, framerate, lsl::cf_double64, plugin->id_name);
-    //lsl::xml_element chns = info.desc().append_child("channels");
-    //hns.append_child("channel").append_child_value("label", "frame_time").append_child_value("unit", "seconds").append_child_value("type", "timestamp");
-    //chns.append_child("channel").append_child_value("label", "frame_num").append_child_value("unit", "integer").append_child_value("type", "frameID");
-    //ns.append_child("channel").append_child_value("label", "frame_dtime").append_child_value("unit", "seconds").append_child_value("type", "time_diff");
-    //plugin->outlet = new lsl::stream_outlet(info);
-    //blog(LOG_INFO, "start LSL output");
+
+    //tentative de separer la creation de l'inlet
+	//using namespace lsl;
+    //	std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
+  	//plugin->inlet = lsl_create_inlet(results[0],300, LSL_NO_PREFERENCE, 1);
 
 
     plugin->linked_lsl = true;
@@ -196,6 +193,8 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
     const char* name = obs_data_get_string(settings, S_NAME);
 
 
+
+
     //if (std::string(id_name)==std::string(plugin_data->id_name) || std::string(name) == std::string(plugin_data->name)) {// (strcmp(id_name,plugin_data->id_name)!=0 || strcmp(name, plugin_data->name) != 0) {
         if (!plugin_data->linked_lsl) {
             plugin_data->id_name = (char*)id_name;
@@ -242,8 +241,14 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
             plugin_data->outline_width = 4;
 
 
+      if(plugin_data->beat >100){
+        plugin_data->color[0] = 0xFFFFFFFF;
+        plugin_data->color[1] = 0xFFFFFFFF;
+      }else{
+
         color[0] = (uint32_t)obs_data_get_int(settings, S_COLOR);
         color[1] = (uint32_t)obs_data_get_int(settings, S_COLOR);
+      }
 
 
         if (color[0] != plugin_data->color[0] || color[1] != plugin_data->color[1]) {
@@ -423,7 +428,7 @@ static void lsl_plugin_tick(void* data, float seconds) {
 
         obs_output_t* output = obs_frontend_get_recording_output();
 
-    
+
     }
 
 
@@ -441,12 +446,19 @@ static void lsl_plugin_tick(void* data, float seconds) {
 
 
 
-      			 //receive data & time stamps forever (not displaying them here)
+      			 //receive data
       			std::vector<int> simple;
 
       			inlet.pull_sample(simple);
-      	    a = simple.front();
-            std::string ts_str = std::to_string(a);
+      	    f->beat = simple.front();
+            std::string ts_str = std::to_string(f->beat);
+
+
+            if(f->beat >100){
+              f->color[0] = 0xFFFFFFFF;
+              f->color[1] = 0xFFFFFFFF;
+            }
+
 
 
         std::string txt = " Hearth Pulse: " + ts_str;
@@ -484,7 +496,7 @@ static void* lsl_plugin_create(obs_data_t* settings, obs_source_t* context) {
 
 struct obs_source_info  create_plugin_info() {
     struct obs_source_info  plugin_info = {};
-    plugin_info.id = "lsl_plugin";
+    plugin_info.id = "Hbeat_text";
     plugin_info.type = OBS_SOURCE_TYPE_INPUT;
     plugin_info.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW;
     plugin_info.get_name = lsl_plugin_name;

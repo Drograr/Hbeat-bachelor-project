@@ -45,7 +45,8 @@ struct lsl_plugin {
 	int frame_number = 0;
 	double frame_time = 0;
 	lsl::stream_outlet* outlet = NULL;
-	
+	//lsl_inlet*  inlet;
+  int beat;
 	bool record;
 	bool stream;
 	char* id_name;

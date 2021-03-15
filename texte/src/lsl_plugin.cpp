@@ -4,7 +4,7 @@
 #include <obs-module.h>
 #include "obs-frontend-api.h"
 #include <obs.h>
-//#include "lsl_filter.h"
+
 #include <stdio.h>
 #include <obs.h>
 #include <algorithm>
@@ -19,27 +19,29 @@
 #include "obs-convenience.h"
 #include "util/platform.h"
 
-#define S_RECORD "record"
-#define S_STREAM "stream"
+
+
 #define S_NAME  "name"
 #define S_ID "id"
 #define S_START "start"
 #define S_STOP "stop"
 #define S_LINK "link"
 #define S_HASTEXT "hastext"
+#define S_AUTOCOLOR "color autochange"
 #define S_FONTSIZE "fontsize"
 #define S_COLOR "color"
 #define S_OUTLINE "outline"
 #define S_SHADOW "shadow"
 
-#define T_RECORD "Record"
-#define T_STREAM "Streama"
+
+
 #define T_NAME  "Name"
 #define T_ID "Id"
 #define T_START "Start"
 #define T_STOP "Stop"
 #define T_LINK "Link"
 #define T_HASTEXT "Enable text"
+#define T_AUTOCOLOR "color autochange"
 #define T_FONTSIZE "Font size"
 #define T_COLOR "Text color"
 #define T_OUTLINE "Text outline"
@@ -61,16 +63,11 @@ uint32_t texbuf_w = 2048, texbuf_h = 2048;
 
 bool plugin_initialized = false;
 
-bool plugin_record = false;
-bool plugin_stream = false;
+
+
 bool plugin_pause = false;
 
-bool check_f(bool stream_data, bool record_data) {
-    // if stream check or record_check is validate we return true
-    bool stream = stream_data && plugin_stream;
-    bool record = record_data && plugin_record;
-    return stream || record;
-}
+
 
 bool init_font(struct lsl_plugin* srcdata)
 {
@@ -109,8 +106,7 @@ static bool lsl_plugin_stop( void* data)
         blog(LOG_INFO, "lsl-plugin has no outlet to stop");
         return false;
     plugin->linked_lsl = false;
-    plugin_record = false;
-    plugin_stream = false;
+
     plugin_pause = false;
     delete plugin->outlet;
     plugin->outlet = NULL;
@@ -124,12 +120,13 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
     obs_properties_t* props = obs_properties_create();
 
-    obs_properties_add_bool(props, S_RECORD, T_RECORD);
-    obs_properties_add_bool(props, S_STREAM, T_STREAM);
+
+
     obs_properties_add_text(props, S_NAME, T_NAME, OBS_TEXT_DEFAULT);
     obs_properties_add_text(props, S_ID, T_ID, OBS_TEXT_DEFAULT);
 
     obs_properties_add_bool(props, S_HASTEXT, T_HASTEXT);
+    obs_properties_add_bool(props, S_AUTOCOLOR, T_AUTOCOLOR);
     obs_properties_add_int(props, S_FONTSIZE, T_FONTSIZE, 1, 100, 1);
     obs_properties_add_color(props, S_COLOR, T_COLOR);
     obs_properties_add_bool(props, S_OUTLINE, T_OUTLINE);
@@ -210,8 +207,8 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
     //}
 
 
-    plugin_data->record = obs_data_get_bool(settings, S_RECORD);
-    plugin_data->stream = obs_data_get_bool(settings, S_STREAM);
+
+
 
     bool link_lsl = obs_data_get_bool(settings, S_LINK);
 
@@ -370,6 +367,12 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
 
 
     }
+    if (obs_data_get_bool(settings, S_AUTOCOLOR)) {
+      plugin_data->autocolor = true;
+    }else {
+      plugin_data->autocolor = false;
+
+    }
 
 
 }
@@ -414,13 +417,7 @@ static void lsl_plugin_tick(void* data, float seconds) {
     if (f == NULL)
         return;
 
-    if (check_f(f->stream, f->record) && !plugin_pause) {
-        // we add one to the frame number
-        f->frame_number++;
-    }
-    else if (!check_f(f->stream, f->record)) {
-        f->frame_number = 0;
-    }
+
 
     f->frame_time = (double)((double)(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count()) / 1000);
 
@@ -453,11 +450,12 @@ static void lsl_plugin_tick(void* data, float seconds) {
       	    f->beat = simple.front();
             std::string ts_str = std::to_string(f->beat);
 
-
+          if (f->autocolor){
             if(f->beat >100){
               f->color[0] = 0xFFFFFFFF;
               f->color[1] = 0xFFFFFFFF;
             }
+          }
 
 
 
@@ -481,6 +479,7 @@ static void* lsl_plugin_create(obs_data_t* settings, obs_source_t* context) {
     obs_data_set_default_string(settings, S_NAME, "OBS");
     obs_data_set_default_string(settings, S_ID, "ID1");
     obs_data_set_default_bool(settings, S_HASTEXT, false);
+    obs_data_set_default_bool(settings, S_AUTOCOLOR, false);
     obs_data_set_default_bool(settings, S_LINK, false);
     obs_data_set_default_int(settings, S_FONTSIZE, 30);
     obs_data_set_default_int(settings, S_COLOR, 0xFFFFFFFF);
@@ -516,8 +515,7 @@ void lsl_plugin_init() {
     if (plugin_initialized)
         return;
 
-    // obs_output_t *output = obs_frontend_get_recording_output();
-     //obs_encoder_t* encoder = obs_output_get_video_encoder(output);
+
     FT_Init_FreeType(&ft2_lib);
 
     if (ft2_lib == NULL) {
@@ -527,28 +525,9 @@ void lsl_plugin_init() {
     plugin_initialized = true;
 }
 
-void start_send_record_f() {
-    plugin_record = true;
-    plugin_pause = false;
-}
-void stop_send_record_f() {
-    plugin_record = false;
-    plugin_pause = false;
-}
-void start_send_stream_f() {
-    plugin_stream = true;
-    plugin_pause = false;
-}
-void stop_send_stream_f() {
-    plugin_stream = false;
-    plugin_pause = false;
-}
-void paused_stream_f() {
-    plugin_pause = true;
-}
-void unpaused_stream_f() {
-    plugin_pause = false;
-}
+
+
+
 
 
 uint32_t lsl_plugin_get_width(void* data)
@@ -572,37 +551,11 @@ void obs_module_unload(void){
     }
 }
 
-void obsstudio_frontend_event_callback(enum obs_frontend_event event, void *private_data){
-        if(event == OBS_FRONTEND_EVENT_RECORDING_STARTED)
-        {
-                start_send_record_f();
 
-        }else if (event == OBS_FRONTEND_EVENT_RECORDING_STOPPED)
-        {
-
-                stop_send_record_f();
-        }
-        else if (event == OBS_FRONTEND_EVENT_RECORDING_PAUSED) {
-                paused_stream_f();
-        }
-        else if (event == OBS_FRONTEND_EVENT_RECORDING_UNPAUSED) {
-                unpaused_stream_f();
-        }
-        else if (event == OBS_FRONTEND_EVENT_STREAMING_STARTED) {
-
-                start_send_stream_f();
-        }
-        else if (event == OBS_FRONTEND_EVENT_STREAMING_STOPPED) {
-
-                stop_send_stream_f();
-
-        }
-
-}
 
 bool obs_module_load(void)
 {
-    obs_frontend_add_event_callback(obsstudio_frontend_event_callback, 0);
+
 
     // link fonction to the output
     obs_source_info lsl_plugin = create_plugin_info();

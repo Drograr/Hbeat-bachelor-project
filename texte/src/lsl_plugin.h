@@ -18,6 +18,7 @@ struct glyph_info {
 
 struct lsl_plugin {
 	bool text_enable;
+	bool autocolor;
 	uint16_t font_size;
 
 	bool antialiasing;
@@ -47,8 +48,6 @@ struct lsl_plugin {
 	lsl::stream_outlet* outlet = NULL;
 	//lsl_inlet*  inlet;
   int beat;
-	bool record;
-	bool stream;
 	char* id_name;
 	char* name;
 	bool linked_lsl = false;

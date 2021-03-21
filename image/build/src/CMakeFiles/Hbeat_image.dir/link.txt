@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG  -shared  -o libHbeat_image.so CMakeFiles/Hbeat_image.dir/image-source.c.o CMakeFiles/Hbeat_image.dir/color-source.c.o CMakeFiles/Hbeat_image.dir/obs-slideshow.c.o /usr/lib/x86_64-linux-gnu/liblsl64.so.1.14.0 /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib/libobs.so.0 -lfreetype -pthread -lpthread -ldl 

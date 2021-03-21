@@ -988,40 +988,8 @@ static void missing_file_callback(void *src, const char *new_path, void *data)
 	obs_data_release(settings);
 }
 
-static obs_missing_files_t *ss_missingfiles(void *data)
-{
-	struct slideshow *s = data;
-	obs_missing_files_t *missing_files = obs_missing_files_create();
 
-	obs_source_t *source = s->source;
-	obs_data_t *settings = obs_source_get_settings(source);
-	obs_data_array_t *files = obs_data_get_array(settings, S_FILES);
 
-	size_t l = obs_data_array_count(files);
-	for (size_t i = 0; i < l; i++) {
-		obs_data_t *item = obs_data_array_item(files, i);
-		const char *path = obs_data_get_string(item, "value");
-
-		if (strcmp(path, "") != 0) {
-			if (!os_file_exists(path)) {
-				obs_missing_file_t *file =
-					obs_missing_file_create(
-						path, missing_file_callback,
-						OBS_MISSING_FILE_SOURCE, source,
-						(void *)path);
-
-				obs_missing_files_add_file(missing_files, file);
-			}
-		}
-
-		obs_data_release(item);
-	}
-
-	obs_data_array_release(files);
-	obs_data_release(settings);
-
-	return missing_files;
-}
 
 struct obs_source_info slideshow_info = {
 	.id = "slideshow",
@@ -1042,7 +1010,7 @@ struct obs_source_info slideshow_info = {
 	.get_height = ss_height,
 	.get_defaults = ss_defaults,
 	.get_properties = ss_properties,
-	.missing_files = ss_missingfiles,
+
 	.icon_type = OBS_ICON_TYPE_SLIDESHOW,
 	.media_play_pause = ss_play_pause,
 	.media_restart = ss_restart,

@@ -380,7 +380,7 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
 static const char* lsl_plugin_name(void* unused)
 {
     UNUSED_PARAMETER(unused);
-    return "LSL plugin";// obs_module_text("LSL plugin");
+    return "Hbeat_text";// obs_module_text("LSL plugin");
 }
 
 static void lsl_plugin_video(void* data, gs_effect_t* effect) {

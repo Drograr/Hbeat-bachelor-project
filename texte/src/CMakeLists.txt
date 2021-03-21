@@ -1,5 +1,5 @@
 
-set(lsl-obs-plugin_SOURCES
+set(Hbeat_text_SOURCES
     obs-convenience.cpp
     text-functionality.cpp
     lsl_plugin.cpp
@@ -7,9 +7,9 @@ set(lsl-obs-plugin_SOURCES
     obs-frontend-api.h
     lsl_plugin.h)
 
-add_library(lsl_plugin MODULE
-    ${lsl-obs-plugin_SOURCES})
-target_link_libraries(lsl_plugin
+add_library(Hbeat_text MODULE
+    ${Hbeat_text_SOURCES})
+target_link_libraries(Hbeat_text
     # TODO: PRIVATE ?
     LSL::lsl
     Threads::Threads

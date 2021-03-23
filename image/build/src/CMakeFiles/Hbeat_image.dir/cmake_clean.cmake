@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Hbeat_image.dir/image-source.c.o"
   "CMakeFiles/Hbeat_image.dir/color-source.c.o"
+  "CMakeFiles/Hbeat_image.dir/image-source.c.o"
   "CMakeFiles/Hbeat_image.dir/obs-slideshow.c.o"
   "libHbeat_image.pdb"
   "libHbeat_image.so"

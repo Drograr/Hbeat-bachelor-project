@@ -1,4 +1,4 @@
-# Install script for directory: /home/dirkx/projet-bachelord/prob/projet-bachelord-hbeat/image/src
+# Install script for directory: /home/jan/projet-bachelord-hbeat/image/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -146,19 +146,26 @@ void fill_vertex_buffer(struct lsl_plugin*srcdata)
 		dx = offset;
 		i++;
 		dy += srcdata->max_h + 4;
-		if (i == wcslen(srcdata->text))
-			goto skip_glyph;
+		if (i == wcslen(srcdata->text)){
+				//goto skip_glyph;
+		}else{
+
 		if (srcdata->text[i] == L'\n')
 			goto add_linebreak;
 	draw_glyph:;
 		// Skip filthy dual byte Windows line breaks
-		if (srcdata->text[i] == L'\r')
-			goto skip_glyph;
+		if (srcdata->text[i] == L'\r'){
+		//goto skip_glyph;
+	}else{
 
 		glyph_index =
 			FT_Get_Char_Index(srcdata->font_face, srcdata->text[i]);
-		if (src_glyph == NULL)
-			goto skip_glyph;
+		if (src_glyph == NULL){
+
+		}else{
+
+
+			//goto skip_glyph;
 
 		set_v3_rect(vdata->points + (cur_glyph * 6),
 			    (float)dx + (float)src_glyph->xoff,
@@ -172,7 +179,10 @@ void fill_vertex_buffer(struct lsl_plugin*srcdata)
 		if (dy - (float)src_glyph->yoff + src_glyph->h > max_y)
 			max_y = dy - src_glyph->yoff + src_glyph->h;
 		cur_glyph++;
-	skip_glyph:;
+	}
+}
+}
+	//skip_glyph:;
 	}
 
 	srcdata->cy = max_y;

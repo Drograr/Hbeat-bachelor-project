@@ -53,7 +53,9 @@ if(WIN32)
     endif()
 endif()
 
-set (CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -fpermissive")
+#set (CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -fpermissive")
+
+set(CMAKE_CXX_FLAGS "-fpermissive -std=c++0x")
 
 # Native `std::thread`s still require a platform thread library.
 # CMake can find and link to it with the `Threads` package (link your

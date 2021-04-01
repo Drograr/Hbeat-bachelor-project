@@ -7,9 +7,6 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/jan/obs-studio/build/libobs/LibObsConfig.cmake"
-  "/home/jan/obs-studio/build/libobs/LibObsConfigVersion.cmake"
-  "/home/jan/obs-studio/build/libobs/LibObsTarget.cmake"
   "../CMakeLists.txt"
   "CMakeFiles/3.16.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
@@ -20,6 +17,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/lib/cmake/LSL/LSLConfigVersion.cmake"
   "/usr/local/lib/cmake/LSL/LSLTargets-release.cmake"
   "/usr/local/lib/cmake/LSL/LSLTargets.cmake"
+  "/usr/local/lib/cmake/LibObs/LibObsConfig.cmake"
+  "/usr/local/lib/cmake/LibObs/LibObsConfigVersion.cmake"
+  "/usr/local/lib/cmake/LibObs/LibObsTarget-relwithdebinfo.cmake"
+  "/usr/local/lib/cmake/LibObs/LibObsTarget.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"

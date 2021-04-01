@@ -18,7 +18,7 @@ static const char *color_source_get_name(void *unused)
 
 static void color_source_update(void *data, obs_data_t *settings)
 {
-	struct color_source *context = data;
+	 color_source* context = (color_source*)data;
 	uint32_t color = (uint32_t)obs_data_get_int(settings, "color");
 	uint32_t width = (uint32_t)obs_data_get_int(settings, "width");
 	uint32_t height = (uint32_t)obs_data_get_int(settings, "height");
@@ -33,7 +33,7 @@ static void *color_source_create(obs_data_t *settings, obs_source_t *source)
 {
 	UNUSED_PARAMETER(source);
 
-	struct color_source *context = bzalloc(sizeof(struct color_source));
+	struct color_source* context = (color_source*)bzalloc(sizeof(struct color_source));
 	context->src = source;
 
 	color_source_update(context, settings);
@@ -88,7 +88,7 @@ static void color_source_render(void *data, gs_effect_t *effect)
 {
 	UNUSED_PARAMETER(effect);
 
-	struct color_source *context = data;
+color_source* context = (color_source*)data;
 
 	/* need linear path for correct alpha blending */
 	const bool linear_srgb = gs_get_linear_srgb() ||
@@ -107,13 +107,13 @@ static void color_source_render(void *data, gs_effect_t *effect)
 
 static uint32_t color_source_getwidth(void *data)
 {
-	struct color_source *context = data;
+	color_source* context = (color_source*)data;
 	return context->width;
 }
 
 static uint32_t color_source_getheight(void *data)
 {
-	struct color_source *context = data;
+	color_source* context = (color_source*)data;
 	return context->height;
 }
 
@@ -138,54 +138,64 @@ static void color_source_defaults_v3(obs_data_t *settings)
 	obs_data_set_default_int(settings, "height", 1080);
 }
 
-struct obs_source_info color_source_info_v1 = {
-	.id = "color_source",
-	.type = OBS_SOURCE_TYPE_INPUT,
-	.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW |
-			OBS_SOURCE_CAP_OBSOLETE,
-	.create = color_source_create,
-	.destroy = color_source_destroy,
-	.update = color_source_update,
-	.get_name = color_source_get_name,
-	.get_defaults = color_source_defaults_v1,
-	.get_width = color_source_getwidth,
-	.get_height = color_source_getheight,
-	.video_render = color_source_render,
-	.get_properties = color_source_properties,
-	.icon_type = OBS_ICON_TYPE_COLOR,
+ struct obs_source_info create_plugin_info_v1() {
+	 struct obs_source_info color_source_info_v1 = {};
+	color_source_info_v1.id = "color_source";
+	color_source_info_v1.type = OBS_SOURCE_TYPE_INPUT;
+	color_source_info_v1.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW |
+			OBS_SOURCE_CAP_OBSOLETE;
+	color_source_info_v1.create = color_source_create;
+	color_source_info_v1.destroy = color_source_destroy;
+	color_source_info_v1.update = color_source_update;
+	color_source_info_v1.get_name = color_source_get_name;
+	color_source_info_v1.get_defaults = color_source_defaults_v1;
+	color_source_info_v1.get_width = color_source_getwidth;
+	color_source_info_v1.get_height = color_source_getheight;
+	color_source_info_v1.video_render = color_source_render;
+	color_source_info_v1.get_properties = color_source_properties;
+	color_source_info_v1.icon_type = OBS_ICON_TYPE_COLOR;
+	return color_source_info_v1;
+}
+
+struct obs_source_info create_plugin_info_v2() {
+	struct obs_source_info color_source_info_v2 = {};
+	color_source_info_v2 .id = "color_source";
+	color_source_info_v2 .version = 2;
+	color_source_info_v2 .type = OBS_SOURCE_TYPE_INPUT;
+	color_source_info_v2 .output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW |
+			OBS_SOURCE_CAP_OBSOLETE;
+	color_source_info_v2 .create = color_source_create;
+	color_source_info_v2 .destroy = color_source_destroy;
+	color_source_info_v2 .update = color_source_update;
+	color_source_info_v2 .get_name = color_source_get_name,
+	color_source_info_v2 .get_defaults = color_source_defaults_v2;
+	color_source_info_v2 .get_width = color_source_getwidth;
+	color_source_info_v2 .get_height = color_source_getheight;
+	color_source_info_v2 .video_render = color_source_render;
+	color_source_info_v2 .get_properties = color_source_properties;
+	color_source_info_v2 .icon_type = OBS_ICON_TYPE_COLOR;
+	return color_source_info_v2 ;
 };
 
-struct obs_source_info color_source_info_v2 = {
-	.id = "color_source",
-	.version = 2,
-	.type = OBS_SOURCE_TYPE_INPUT,
-	.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW |
-			OBS_SOURCE_CAP_OBSOLETE,
-	.create = color_source_create,
-	.destroy = color_source_destroy,
-	.update = color_source_update,
-	.get_name = color_source_get_name,
-	.get_defaults = color_source_defaults_v2,
-	.get_width = color_source_getwidth,
-	.get_height = color_source_getheight,
-	.video_render = color_source_render,
-	.get_properties = color_source_properties,
-	.icon_type = OBS_ICON_TYPE_COLOR,
+struct obs_source_info create_plugin_info_v3() {
+	struct obs_source_info color_source_info_v3 = {};
+	color_source_info_v3.id = "color_source";
+	color_source_info_v3.version = 3;
+	color_source_info_v3.type = OBS_SOURCE_TYPE_INPUT;
+	color_source_info_v3.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW;
+	color_source_info_v3.create = color_source_create;
+	color_source_info_v3.destroy = color_source_destroy;
+	color_source_info_v3.update = color_source_update;
+	color_source_info_v3.get_name = color_source_get_name;
+	color_source_info_v3.get_defaults = color_source_defaults_v3;
+	color_source_info_v3.get_width = color_source_getwidth;
+	color_source_info_v3.get_height = color_source_getheight;
+	color_source_info_v3.video_render = color_source_render;
+	color_source_info_v3.get_properties = color_source_properties;
+	color_source_info_v3.icon_type = OBS_ICON_TYPE_COLOR;
+	return color_source_info_v3;
 };
 
-struct obs_source_info color_source_info_v3 = {
-	.id = "color_source",
-	.version = 3,
-	.type = OBS_SOURCE_TYPE_INPUT,
-	.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW,
-	.create = color_source_create,
-	.destroy = color_source_destroy,
-	.update = color_source_update,
-	.get_name = color_source_get_name,
-	.get_defaults = color_source_defaults_v3,
-	.get_width = color_source_getwidth,
-	.get_height = color_source_getheight,
-	.video_render = color_source_render,
-	.get_properties = color_source_properties,
-	.icon_type = OBS_ICON_TYPE_COLOR,
-};
+struct obs_source_info color_source_info_v1 = create_plugin_info_v1();
+struct obs_source_info color_source_info_v2 = create_plugin_info_v2();
+struct obs_source_info color_source_info_v3 = create_plugin_info_v3();

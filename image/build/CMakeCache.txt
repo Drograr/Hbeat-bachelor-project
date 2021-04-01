@@ -234,7 +234,7 @@ LSL_DEPLOYAPPLIBS:BOOL=ON
 LSL_DIR:PATH=/usr/local/lib/cmake/LSL
 
 //The directory containing a CMake configuration file for LibObs.
-LibObs_DIR:PATH=/home/jan/obs-studio/build/libobs
+LibObs_DIR:PATH=/usr/local/lib/cmake/LibObs
 
 //Value Computed by CMake
 lsl-obs-plugin_BINARY_DIR:STATIC=/home/jan/projet-bachelord-hbeat/image/build
@@ -414,4 +414,6 @@ FREETYPE_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 FREETYPE_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //MODIFIED property for variable: LSL_COMFY_DEFAULTS
 LSL_COMFY_DEFAULTS-MODIFIED:INTERNAL=ON
+//MODIFIED property for variable: LibObs_DIR
+LibObs_DIR-MODIFIED:INTERNAL=ON
 

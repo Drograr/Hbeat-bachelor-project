@@ -125,86 +125,86 @@ Hbeat_image/fast:
 	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/build
 .PHONY : Hbeat_image/fast
 
-color-source.o: color-source.c.o
+color-source.o: color-source.cpp.o
 
 .PHONY : color-source.o
 
 # target to build an object file
-color-source.c.o:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.c.o
-.PHONY : color-source.c.o
+color-source.cpp.o:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.cpp.o
+.PHONY : color-source.cpp.o
 
-color-source.i: color-source.c.i
+color-source.i: color-source.cpp.i
 
 .PHONY : color-source.i
 
 # target to preprocess a source file
-color-source.c.i:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.c.i
-.PHONY : color-source.c.i
+color-source.cpp.i:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.cpp.i
+.PHONY : color-source.cpp.i
 
-color-source.s: color-source.c.s
+color-source.s: color-source.cpp.s
 
 .PHONY : color-source.s
 
 # target to generate assembly for a file
-color-source.c.s:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.c.s
-.PHONY : color-source.c.s
+color-source.cpp.s:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.cpp.s
+.PHONY : color-source.cpp.s
 
-image-source.o: image-source.c.o
+image-source.o: image-source.cpp.o
 
 .PHONY : image-source.o
 
 # target to build an object file
-image-source.c.o:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.c.o
-.PHONY : image-source.c.o
+image-source.cpp.o:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o
+.PHONY : image-source.cpp.o
 
-image-source.i: image-source.c.i
+image-source.i: image-source.cpp.i
 
 .PHONY : image-source.i
 
 # target to preprocess a source file
-image-source.c.i:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.c.i
-.PHONY : image-source.c.i
+image-source.cpp.i:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.i
+.PHONY : image-source.cpp.i
 
-image-source.s: image-source.c.s
+image-source.s: image-source.cpp.s
 
 .PHONY : image-source.s
 
 # target to generate assembly for a file
-image-source.c.s:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.c.s
-.PHONY : image-source.c.s
+image-source.cpp.s:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.s
+.PHONY : image-source.cpp.s
 
-obs-slideshow.o: obs-slideshow.c.o
+obs-slideshow.o: obs-slideshow.cpp.o
 
 .PHONY : obs-slideshow.o
 
 # target to build an object file
-obs-slideshow.c.o:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.c.o
-.PHONY : obs-slideshow.c.o
+obs-slideshow.cpp.o:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.o
+.PHONY : obs-slideshow.cpp.o
 
-obs-slideshow.i: obs-slideshow.c.i
+obs-slideshow.i: obs-slideshow.cpp.i
 
 .PHONY : obs-slideshow.i
 
 # target to preprocess a source file
-obs-slideshow.c.i:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.c.i
-.PHONY : obs-slideshow.c.i
+obs-slideshow.cpp.i:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.i
+.PHONY : obs-slideshow.cpp.i
 
-obs-slideshow.s: obs-slideshow.c.s
+obs-slideshow.s: obs-slideshow.cpp.s
 
 .PHONY : obs-slideshow.s
 
 # target to generate assembly for a file
-obs-slideshow.c.s:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.c.s
-.PHONY : obs-slideshow.c.s
+obs-slideshow.cpp.s:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.s
+.PHONY : obs-slideshow.cpp.s
 
 # Help Target
 help:

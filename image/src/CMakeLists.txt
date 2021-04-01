@@ -1,9 +1,9 @@
 
 
 set(Hbeat_image_SOURCES
-	image-source.c
-	color-source.c
-	obs-slideshow.c)
+	image-source.cpp
+	color-source.cpp
+	obs-slideshow.cpp)
 
 
 

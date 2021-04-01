@@ -3,6 +3,13 @@
 #include <util/platform.h>
 #include <util/dstr.h>
 #include <sys/stat.h>
+#include <stdio.h>
+#include <obs.h>
+#include <lsl_c.h>
+#include <stdio.h>
+#include <lsl_cpp.h>
+#include <vector>
+#include <obs.h>
 
 #define blog(log_level, format, ...)                    \
 	blog(log_level, "[image_source: '%s'] " format, \
@@ -71,7 +78,7 @@ static void image_source_unload(struct image_source *context)
 
 static void image_source_update(void *data, obs_data_t *settings)
 {
-	struct image_source *context = data;
+	 image_source* context = (image_source*)data;
 	const char *file = obs_data_get_string(settings, "file");
 	const bool unload = obs_data_get_bool(settings, "unload");
 
@@ -82,9 +89,9 @@ static void image_source_update(void *data, obs_data_t *settings)
 
 	/* Load the image if the source is persistent or showing */
 	if (context->persistent || obs_source_showing(context->source))
-		image_source_load(data);
+		image_source_load(context);
 	else
-		image_source_unload(data);
+		image_source_unload(context);
 }
 
 static void image_source_defaults(obs_data_t *settings)
@@ -94,7 +101,7 @@ static void image_source_defaults(obs_data_t *settings)
 
 static void image_source_show(void *data)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 
 	if (!context->persistent)
 		image_source_load(context);
@@ -102,7 +109,7 @@ static void image_source_show(void *data)
 
 static void image_source_hide(void *data)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 
 	if (!context->persistent)
 		image_source_unload(context);
@@ -110,7 +117,7 @@ static void image_source_hide(void *data)
 
 static void *image_source_create(obs_data_t *settings, obs_source_t *source)
 {
-	struct image_source *context = bzalloc(sizeof(struct image_source));
+	struct image_source* context = (image_source*) bzalloc(sizeof(struct image_source));
 	context->source = source;
 
 	image_source_update(context, settings);
@@ -119,7 +126,7 @@ static void *image_source_create(obs_data_t *settings, obs_source_t *source)
 
 static void image_source_destroy(void *data)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 
 	image_source_unload(context);
 
@@ -130,19 +137,19 @@ static void image_source_destroy(void *data)
 
 static uint32_t image_source_getwidth(void *data)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 	return context->if2.image.cx;
 }
 
 static uint32_t image_source_getheight(void *data)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 	return context->if2.image.cy;
 }
 
 static void image_source_render(void *data, gs_effect_t *effect)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 
 	if (!context->if2.image.texture)
 		return;
@@ -166,7 +173,7 @@ static void image_source_render(void *data, gs_effect_t *effect)
 
 static void image_source_tick(void *data, float seconds)
 {
-	struct image_source *context = data;
+	image_source* context = (image_source*)data;
 	uint64_t frame_time = obs_get_video_frame_time();
 
 	context->update_time_elapsed += seconds;
@@ -217,6 +224,31 @@ static void image_source_tick(void *data, float seconds)
 			obs_leave_graphics();
 		}
 	}
+	int a;
+	using namespace lsl;
+		std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
+		stream_inlet inlet(results[0]);
+
+
+
+
+			 //receive data
+		std::vector<int> simple;
+
+		inlet.pull_sample(simple);
+		a =  simple.front();
+		context->if2.image.cy = a;
+		context->if2.image.cx = a;
+
+	//	if (a == 80)
+	//	{
+		//	context->if2.image.cy = 500;
+	//	}
+	//	if (a == 100)
+	//	{
+		//	context->if2.image.cy = 1000;
+	//	}
+
 
 	context->last_time = frame_time;
 }
@@ -234,7 +266,7 @@ static const char *image_filter =
 
 static obs_properties_t *image_source_properties(void *data)
 {
-	struct image_source *s = data;
+	 image_source* s = (image_source*)data;
 	struct dstr path = {0};
 
 	obs_properties_t *props = obs_properties_create();
@@ -260,13 +292,13 @@ static obs_properties_t *image_source_properties(void *data)
 
 uint64_t image_source_get_memory_usage(void *data)
 {
-	struct image_source *s = data;
+image_source* s = (image_source*)data;
 	return s->if2.mem_usage;
 }
 
 static void missing_file_callback(void *src, const char *new_path, void *data)
 {
-	struct image_source *s = src;
+	image_source* s = (image_source*)src;
 
 	obs_source_t *source = s->source;
 	obs_data_t *settings = obs_source_get_settings(source);
@@ -280,25 +312,27 @@ static void missing_file_callback(void *src, const char *new_path, void *data)
 
 
 
-static struct obs_source_info image_source_info = {
-	.id = "Hbeat_image",
-	.type = OBS_SOURCE_TYPE_INPUT,
-	.output_flags = OBS_SOURCE_VIDEO,
-	.get_name = image_source_get_name,
-	.create = image_source_create,
-	.destroy = image_source_destroy,
-	.update = image_source_update,
-	.get_defaults = image_source_defaults,
-	.show = image_source_show,
-	.hide = image_source_hide,
-	.get_width = image_source_getwidth,
-	.get_height = image_source_getheight,
-	.video_render = image_source_render,
-	.video_tick = image_source_tick,
+ struct obs_source_info create_plugin_info() {
+	 struct obs_source_info plugin_info = {};
+	plugin_info.id = "Hbeat_image";
+	plugin_info.type = OBS_SOURCE_TYPE_INPUT;
+	plugin_info.output_flags = OBS_SOURCE_VIDEO;
+	plugin_info.get_name = image_source_get_name;
+	plugin_info.create = image_source_create;
+	plugin_info.destroy = image_source_destroy;
+	plugin_info.update = image_source_update;
+	plugin_info.get_defaults = image_source_defaults;
+	plugin_info.show = image_source_show;
+	plugin_info.hide = image_source_hide;
+	plugin_info.get_width = image_source_getwidth;
+	plugin_info.get_height = image_source_getheight;
+	plugin_info.video_render = image_source_render;
+	plugin_info.video_tick = image_source_tick;
 
-	.get_properties = image_source_properties,
-	.icon_type = OBS_ICON_TYPE_IMAGE,
-};
+	plugin_info.get_properties = image_source_properties;
+	plugin_info.icon_type = OBS_ICON_TYPE_IMAGE;
+	return plugin_info;
+}
 
 OBS_DECLARE_MODULE()
 OBS_MODULE_USE_DEFAULT_LOCALE("image-source", "en-US")
@@ -314,7 +348,8 @@ extern struct obs_source_info color_source_info_v3;
 
 bool obs_module_load(void)
 {
-	obs_register_source(&image_source_info);
+	obs_source_info Hbeat_image_info = create_plugin_info();
+	obs_register_source(&Hbeat_image_info);
 	obs_register_source(&color_source_info_v1);
 	obs_register_source(&color_source_info_v2);
 	obs_register_source(&color_source_info_v3);

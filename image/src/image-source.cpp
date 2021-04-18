@@ -10,6 +10,16 @@
 #include <lsl_cpp.h>
 #include <vector>
 #include <obs.h>
+#include <map>
+#include <thread>
+#include <algorithm>
+
+
+
+#define SETTING_LSL_CHAN              "LSL_chan"
+
+#define TEXT_LSL_CHAN                obs_module_text("LSL_chan")
+
 
 #define blog(log_level, format, ...)                    \
 	blog(log_level, "[image_source: '%s'] " format, \
@@ -28,8 +38,10 @@ struct image_source {
 	float update_time_elapsed;
 	uint64_t last_time;
 	bool active;
+	const char *lsl_chan_name;
 
 	gs_image_file2_t if2;
+//	obs_property_t *p;
 };
 
 static time_t get_modified_timestamp(const char *filename)
@@ -92,6 +104,11 @@ static void image_source_update(void *data, obs_data_t *settings)
 		image_source_load(context);
 	else
 		image_source_unload(context);
+
+
+//	obs_property_list_add_string(context->p, obs_module_text("Green"), "green");
+context->lsl_chan_name =
+	obs_data_get_string(settings, SETTING_LSL_CHAN);
 }
 
 static void image_source_defaults(obs_data_t *settings)
@@ -224,30 +241,40 @@ static void image_source_tick(void *data, float seconds)
 			obs_leave_graphics();
 		}
 	}
-	int a;
-	using namespace lsl;
-		std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
-		stream_inlet inlet(results[0]);
 
 
 
 
-			 //receive data
-		std::vector<int> simple;
+	std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
-		inlet.pull_sample(simple);
-		a =  simple.front();
-		context->if2.image.cy = a;
-		context->if2.image.cx = a;
+	std::map<std::string, lsl::stream_info> found_streams;
+	// display them
+	int i;
+	i = 0;
+	for (auto &stream : results) {
+		found_streams.emplace(std::make_pair(stream.uid(), stream));
+		if (strcmp(context->lsl_chan_name, stream.name().c_str()) == 0)
+		{
+			int a;
+			using namespace lsl;
 
-	//	if (a == 80)
-	//	{
-		//	context->if2.image.cy = 500;
-	//	}
-	//	if (a == 100)
-	//	{
-		//	context->if2.image.cy = 1000;
-	//	}
+				stream_inlet inlet(results[i]);
+
+
+
+
+					 //receive data
+				std::vector<int> simple;
+
+				inlet.pull_sample(simple);
+				a =  simple.front();
+				context->if2.image.cy = a;
+				context->if2.image.cx = a;
+		}
+		i = i +1;
+	}
+
+
 
 
 	context->last_time = frame_time;
@@ -271,6 +298,8 @@ static obs_properties_t *image_source_properties(void *data)
 
 	obs_properties_t *props = obs_properties_create();
 
+	//string lsl_name;
+
 	if (s && s->file && *s->file) {
 		const char *slash;
 
@@ -287,6 +316,21 @@ static obs_properties_t *image_source_properties(void *data)
 				obs_module_text("UnloadWhenNotShowing"));
 	dstr_free(&path);
 
+	obs_property_t *p = obs_properties_add_list(props, SETTING_LSL_CHAN,
+								TEXT_LSL_CHAN,
+								OBS_COMBO_TYPE_LIST,
+								OBS_COMBO_FORMAT_STRING);
+
+	std::vector<lsl::stream_info> results = lsl::resolve_streams();
+
+	std::map<std::string, lsl::stream_info> found_streams;
+								// display them
+	for (auto &stream : results) {
+				found_streams.emplace(std::make_pair(stream.uid(), stream));
+					 //lsl_name = stream.name();
+
+	obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
+  }
 	return props;
 }
 

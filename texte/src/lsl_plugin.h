@@ -21,6 +21,9 @@ struct lsl_plugin {
 	bool autocolor;
 	uint16_t font_size;
 
+	const char *lsl_chan_name;
+
+
 	bool antialiasing;
 	wchar_t* text;
 

@@ -18,6 +18,12 @@
 #include <sys/stat.h>
 #include "obs-convenience.h"
 #include "util/platform.h"
+#include <map>
+#include <thread>
+#include <algorithm>
+#include <lsl_cpp.h>
+#include <vector>
+#include <lsl_c.h>
 
 
 
@@ -32,6 +38,7 @@
 #define S_COLOR "color"
 #define S_OUTLINE "outline"
 #define S_SHADOW "shadow"
+#define SETTING_LSL_CHAN              "LSL_chan"
 
 
 
@@ -46,6 +53,8 @@
 #define T_COLOR "Text color"
 #define T_OUTLINE "Text outline"
 #define T_SHADOW "Text shadow"
+#define TEXT_LSL_CHAN                "LSL_chan"
+
 
 
 
@@ -124,6 +133,27 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
     obs_properties_add_text(props, S_NAME, T_NAME, OBS_TEXT_DEFAULT);
     obs_properties_add_text(props, S_ID, T_ID, OBS_TEXT_DEFAULT);
+
+    obs_property_t *p = obs_properties_add_list(props, SETTING_LSL_CHAN,
+                  TEXT_LSL_CHAN,
+                  OBS_COMBO_TYPE_LIST,
+                  OBS_COMBO_FORMAT_STRING);
+
+    std::vector<lsl::stream_info> results = lsl::resolve_streams();
+
+    std::map<std::string, lsl::stream_info> found_streams;
+                                // display them
+    for (auto &stream : results) {
+              found_streams.emplace(std::make_pair(stream.uid(), stream));
+                           //lsl_name = stream.name();
+
+      obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
+      }
+
+
+
+
+
 
     obs_properties_add_bool(props, S_HASTEXT, T_HASTEXT);
     obs_properties_add_bool(props, S_AUTOCOLOR, T_AUTOCOLOR);
@@ -373,7 +403,8 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
       plugin_data->autocolor = false;
 
     }
-
+    plugin_data->lsl_chan_name =
+    	obs_data_get_string(settings, SETTING_LSL_CHAN);
 
 }
 
@@ -434,32 +465,47 @@ static void lsl_plugin_tick(void* data, float seconds) {
         //std::string ts_str = std::to_string(f->frame_time);
         std::string id_str = std::to_string(f->frame_number);
 
-        int a;
-
-      	using namespace lsl;
-      		std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
-      		stream_inlet inlet(results[0]);
 
 
+          std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
+        	std::map<std::string, lsl::stream_info> found_streams;
+        	// display them
+        	int i;
+        	i = 0;
+        	for (auto &stream : results) {
+        		found_streams.emplace(std::make_pair(stream.uid(), stream));
+        		if (strcmp(f->lsl_chan_name, stream.name().c_str()) == 0)
+        		{
+        			int a;
+        			using namespace lsl;
 
-      			 //receive data
-      			std::vector<int> simple;
-
-      			inlet.pull_sample(simple);
-      	    f->beat = simple.front();
-            std::string ts_str = std::to_string(f->beat);
-
-          if (f->autocolor){
-            if(f->beat >100){
-              f->color[0] = 0xFFFFFFFF;
-              f->color[1] = 0xFFFFFFFF;
-            }
-          }
+        				stream_inlet inlet(results[i]);
 
 
 
-        std::string txt = " Hearth Pulse: " + ts_str;
+
+        					 //receive data
+        				std::vector<int> simple;
+
+        				inlet.pull_sample(simple);
+                f->beat = simple.front();
+
+
+              if (f->autocolor){
+                if(f->beat >100){
+                  f->color[0] = 0xFFFFFFFF;
+                  f->color[1] = 0xFFFFFFFF;
+                }
+              }
+        		}
+        		i = i +1;
+        	}
+
+
+        std::string ts_str = std::to_string(f->beat);
+
+        std::string txt = "  " + ts_str;
         std::wstring wtxt = std::wstring(txt.begin(), txt.end());
         f->text = (wchar_t*)wtxt.c_str();
 

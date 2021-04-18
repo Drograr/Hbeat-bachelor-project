@@ -21,7 +21,7 @@
 #define info(format, ...) blog(LOG_INFO, format, ##__VA_ARGS__)
 #define warn(format, ...) blog(LOG_WARNING, format, ##__VA_ARGS__)
 
-struct image_source {
+struct graphe_source {
 	obs_source_t *source;
 
 	char *file;
@@ -30,8 +30,14 @@ struct image_source {
 	float update_time_elapsed;
 	uint64_t last_time;
 	bool active;
+	double x[10];
+	double y[10];
+	QwtPlot *myplot;
+	QwtPlotCurve *curve;
 
-	gs_image_file2_t if2;
+
+	uint32_t cx=100,cy=100;
+	// if2;
 };
 
 static time_t get_modified_timestamp(const char *filename)
@@ -42,140 +48,139 @@ static time_t get_modified_timestamp(const char *filename)
 	return stats.st_mtime;
 }
 
-static const char *image_source_get_name(void *unused)
+static const char *graphe_source_get_name(void *unused)
 {
 	UNUSED_PARAMETER(unused);
-	return "Hbeat_image";//obs_module_text("ImageInput");
+	return "Hbeat_graphe";//obs_module_text("ImageInput");
 }
 
-static void image_source_load(struct image_source *context)
+
+
+
+
+static void graphe_source_update(void *data, obs_data_t *settings)
 {
-	char *file = context->file;
+	 graphe_source* context = (graphe_source*)data;
 
-	obs_enter_graphics();
-	gs_image_file2_free(&context->if2);
-	obs_leave_graphics();
 
-	if (file && *file) {
-		debug("loading texture '%s'", file);
-		context->file_timestamp = get_modified_timestamp(file);
-		gs_image_file2_init(&context->if2, file);
-		context->update_time_elapsed = 0;
 
-		obs_enter_graphics();
-		gs_image_file2_init_texture(&context->if2);
-		obs_leave_graphics();
 
-		if (!context->if2.image.loaded)
-			warn("failed to load texture '%s'", file);
-	}
-}
 
-static void image_source_unload(struct image_source *context)
-{
-	obs_enter_graphics();
-	gs_image_file2_free(&context->if2);
-	obs_leave_graphics();
-}
 
-static void image_source_update(void *data, obs_data_t *settings)
-{
-	 image_source* context = (image_source*)data;
-	const char *file = obs_data_get_string(settings, "file");
-	const bool unload = obs_data_get_bool(settings, "unload");
 
-	if (context->file)
-		bfree(context->file);
-	context->file = bstrdup(file);
-	context->persistent = !unload;
+
+
+
+
+
+
+
+
+
+
+
+//context->myplot->show();
+
+
+
+
+
 
 	/* Load the image if the source is persistent or showing */
-	if (context->persistent || obs_source_showing(context->source))
-		image_source_load(context);
-	else
-		image_source_unload(context);
+	//if (context->persistent || obs_source_showing(context->source))
+		//graphe_source_load(context);
+	//else
+		//graphe_source_unload(context);
 }
 
-static void image_source_defaults(obs_data_t *settings)
+static void graphe_source_defaults(obs_data_t *settings)
 {
-	obs_data_set_default_bool(settings, "unload", false);
+	//obs_data_set_default_bool(settings, "unload", false);
 }
 
-static void image_source_show(void *data)
+
+
+static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 {
-	image_source* context = (image_source*)data;
-
-	if (!context->persistent)
-		image_source_load(context);
-}
-
-static void image_source_hide(void *data)
-{
-	image_source* context = (image_source*)data;
-
-	if (!context->persistent)
-		image_source_unload(context);
-}
-
-static void *image_source_create(obs_data_t *settings, obs_source_t *source)
-{
-	struct image_source* context = (image_source*) bzalloc(sizeof(struct image_source));
+	struct graphe_source* context = (graphe_source*) bzalloc(sizeof(struct graphe_source));
 	context->source = source;
+	context->persistent = true;
+	context->myplot = new QwtPlot;
 
-	image_source_update(context, settings);
+
+	context->curve =  new QwtPlotCurve("curve1");
+
+	context->myplot->show();
+	context->x[0] = 1;
+	context->x[1] = 2;
+	context->x[2] = 3;
+	context->x[3] = 4;
+	context->x[4] = 5;
+	context->x[5] = 6;
+	context->x[6] = 7;
+	context->x[7] = 8;
+	context->x[8] = 9;
+	context->x[9] = 10;
+	context->y[0] = 1;
+	context->y[1] = 2;
+	context->y[2] = 3;
+	context->y[3] = 4;
+	context->y[4] = 5;
+	context->y[5] = 6;
+	context->y[6] = 7;
+	context->y[7] = 8;
+	context->y[8] = 9;
+	context->y[9] = 10;
+
+	context->curve->setSamples(context->x,context->y,10);
+	context->curve->attach(context->myplot);
+	context->myplot->replot();
+
+
+
+
+
+
+
+	graphe_source_update(context, settings);
 	return context;
 }
 
-static void image_source_destroy(void *data)
+static void graphe_source_destroy(void *data)
 {
-	image_source* context = (image_source*)data;
+	graphe_source* context = (graphe_source*)data;
 
-	image_source_unload(context);
 
-	if (context->file)
-		bfree(context->file);
 	bfree(context);
 }
 
-static uint32_t image_source_getwidth(void *data)
+static uint32_t graphe_source_getwidth(void *data)
 {
-	image_source* context = (image_source*)data;
-	return context->if2.image.cx;
+	graphe_source* context = (graphe_source*)data;
+	return context-> cx;
 }
 
-static uint32_t image_source_getheight(void *data)
+static uint32_t graphe_source_getheight(void *data)
 {
-	image_source* context = (image_source*)data;
-	return context->if2.image.cy;
+	graphe_source* context = (graphe_source*)data;
+	return context-> cy;
 }
 
-static void image_source_render(void *data, gs_effect_t *effect)
+static void graphe_source_render(void *data, gs_effect_t *effect)
 {
-	image_source* context = (image_source*)data;
+	graphe_source* context = (graphe_source*)data;
 
-	if (!context->if2.image.texture)
-		return;
+	context->myplot->show();
+	
 
-	//const bool linear_srgb = gs_get_linear_srgb();
 
-	//const bool previous = gs_framebuffer_srgb_enabled();
-	//gs_enable_framebuffer_srgb(linear_srgb);
 
-	gs_eparam_t *const param = gs_effect_get_param_by_name(effect, "image");
-	//if (linear_srgb)
-		//gs_effect_set_texture_srgb(param, context->if2.image.texture);
-	//else
-		gs_effect_set_texture(param, context->if2.image.texture);
 
-	gs_draw_sprite(context->if2.image.texture, 0, context->if2.image.cx,
-		       context->if2.image.cy);
-
-	//gs_enable_framebuffer_srgb(previous);
 }
 
-static void image_source_tick(void *data, float seconds)
+static void graphe_source_tick(void *data, float seconds)
 {
-	image_source* context = (image_source*)data;
+	graphe_source* context = (graphe_source*)data;
 	uint64_t frame_time = obs_get_video_frame_time();
 
 	context->update_time_elapsed += seconds;
@@ -186,130 +191,67 @@ static void image_source_tick(void *data, float seconds)
 			context->update_time_elapsed = 0.0f;
 
 			if (context->file_timestamp != t) {
-				image_source_load(context);
+				//graphe_source_load(context);
 			}
 		}
 	}
 
-	if (obs_source_active(context->source)) {
-		if (!context->active) {
-			if (context->if2.image.is_animated_gif)
-				context->last_time = frame_time;
-			context->active = true;
-		}
 
-	} else {
-		if (context->active) {
-			if (context->if2.image.is_animated_gif) {
-				context->if2.image.cur_frame = 0;
-				context->if2.image.cur_loop = 0;
-				context->if2.image.cur_time = 0;
 
-				obs_enter_graphics();
-				gs_image_file2_update_texture(&context->if2);
-				obs_leave_graphics();
-			}
+	context->x[0] = 1;
+	context->x[1] = 2;
+	context->x[2] = 3;
+	context->x[3] = 4;
+	context->x[4] = 5;
+	context->x[5] = 6;
+	context->x[6] = 7;
+	context->x[7] = 8;
+	context->x[8] = 9;
+	context->x[9] = 10;
+	context->y[0] = context->y[1];
+	context->y[1] = context->y[2];
+	context->y[2] = context->y[3];
+	context->y[3] = context->y[4];
+	context->y[4] = context->y[5];
+	context->y[5] = context->y[6];
+	context->y[6] = context->y[7];
+	context->y[7] = context->y[8];
+	context->y[8] = context->y[9];
+	context->y[9] = context->y[0];
 
-			context->active = false;
-		}
-
-		return;
-	}
-
-	if (context->last_time && context->if2.image.is_animated_gif) {
-		uint64_t elapsed = frame_time - context->last_time;
-		bool updated = gs_image_file2_tick(&context->if2, elapsed);
-
-		if (updated) {
-			obs_enter_graphics();
-			gs_image_file2_update_texture(&context->if2);
-			obs_leave_graphics();
-		}
-	}
-	int a;
-	using namespace lsl;
-		std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
-		stream_inlet inlet(results[0]);
+	context->curve->setSamples(context->x,context->y,10);
+	context->curve->attach(context->myplot);
+	context->myplot->replot();
 
 
 
 
-			 //receive data
-		std::vector<int> simple;
 
-		inlet.pull_sample(simple);
-		a =  simple.front();
-		context->if2.image.cy = a;
-		context->if2.image.cx = a;
 
-	//	if (a == 80)
-	//	{
-		//	context->if2.image.cy = 500;
-	//	}
-	//	if (a == 100)
-	//	{
-		//	context->if2.image.cy = 1000;
-	//	}
+
 
 
 	context->last_time = frame_time;
 }
 
-static const char *image_filter =
-	"All formats (*.bmp *.tga *.png *.jpeg *.jpg *.gif *.psd *.webp);;"
-	"BMP Files (*.bmp);;"
-	"Targa Files (*.tga);;"
-	"PNG Files (*.png);;"
-	"JPEG Files (*.jpeg *.jpg);;"
-	"GIF Files (*.gif);;"
-	"PSD Files (*.psd);;"
-	"WebP Files (*.webp);;"
-	"All Files (*.*)";
 
-static obs_properties_t *image_source_properties(void *data)
+
+static obs_properties_t *graphe_source_properties(void *data)
 {
-	 image_source* s = (image_source*)data;
-	struct dstr path = {0};
+	 graphe_source* s = (graphe_source*)data;
+
 
 	obs_properties_t *props = obs_properties_create();
 
-	if (s && s->file && *s->file) {
-		const char *slash;
 
-		dstr_copy(&path, s->file);
-		dstr_replace(&path, "\\", "/");
-		slash = strrchr(path.array, '/');
-		if (slash)
-			dstr_resize(&path, slash - path.array + 1);
-	}
 
-	obs_properties_add_path(props, "file", obs_module_text("File"),
-				OBS_PATH_FILE, image_filter, path.array);
-	obs_properties_add_bool(props, "unload",
-				obs_module_text("UnloadWhenNotShowing"));
-	dstr_free(&path);
 
 	return props;
 }
 
-uint64_t image_source_get_memory_usage(void *data)
-{
-image_source* s = (image_source*)data;
-	return s->if2.mem_usage;
-}
 
-static void missing_file_callback(void *src, const char *new_path, void *data)
-{
-	image_source* s = (image_source*)src;
 
-	obs_source_t *source = s->source;
-	obs_data_t *settings = obs_source_get_settings(source);
-	obs_data_set_string(settings, "file", new_path);
-	obs_source_update(source, settings);
-	obs_data_release(settings);
 
-	UNUSED_PARAMETER(data);
-}
 
 
 
@@ -318,29 +260,27 @@ static void missing_file_callback(void *src, const char *new_path, void *data)
 	 struct obs_source_info plugin_info = {};
 	plugin_info.id = "Hbeat_graphe";
 	plugin_info.type = OBS_SOURCE_TYPE_INPUT;
-	plugin_info.output_flags = OBS_SOURCE_VIDEO;
-	plugin_info.get_name = image_source_get_name;
-	plugin_info.create = image_source_create;
-	plugin_info.destroy = image_source_destroy;
-	plugin_info.update = image_source_update;
-	plugin_info.get_defaults = image_source_defaults;
-	plugin_info.show = image_source_show;
-	plugin_info.hide = image_source_hide;
-	plugin_info.get_width = image_source_getwidth;
-	plugin_info.get_height = image_source_getheight;
-	plugin_info.video_render = image_source_render;
-	plugin_info.video_tick = image_source_tick;
+	plugin_info.output_flags = OBS_SOURCE_VIDEO | OBS_SOURCE_CUSTOM_DRAW;
+	plugin_info.get_name = graphe_source_get_name;
+	plugin_info.create = graphe_source_create;
+	plugin_info.destroy = graphe_source_destroy;
+	plugin_info.update = graphe_source_update;
+	plugin_info.get_defaults = graphe_source_defaults;
+	plugin_info.get_width = graphe_source_getwidth;
+	plugin_info.get_height = graphe_source_getheight;
+	plugin_info.video_render = graphe_source_render;
+	plugin_info.video_tick = graphe_source_tick;
 
-	plugin_info.get_properties = image_source_properties;
-	plugin_info.icon_type = OBS_ICON_TYPE_IMAGE;
+	plugin_info.get_properties = graphe_source_properties;
+	//plugin_info.icon_type = OBS_ICON_TYPE_IMAGE;
 	return plugin_info;
 }
 
 OBS_DECLARE_MODULE()
-OBS_MODULE_USE_DEFAULT_LOCALE("image-source", "en-US")
+OBS_MODULE_USE_DEFAULT_LOCALE("graphe-source", "en-US")
 MODULE_EXPORT const char *obs_module_description(void)
 {
-	return "Image/color/slideshow sources";
+	return "graphe_lsl";
 }
 
 

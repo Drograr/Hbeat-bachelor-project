@@ -221,6 +221,9 @@ FREETYPE_LIBRARY_DEBUG:FILEPATH=FREETYPE_LIBRARY_DEBUG-NOTFOUND
 FREETYPE_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libfreetype.so
 
 //Dependencies for the target
+Hbeat_graphe_LIB_DEPENDS:STATIC=general;libobs;general;LSL::lsl;general;Qwt::Qwt;general;qwt-qt5;general;Freetype::Freetype;general;libobs;general;/usr/lib/x86_64-linux-gnu/libfreetype.so;general;Qt5::Widgets;
+
+//Dependencies for the target
 Hbeat_image_LIB_DEPENDS:STATIC=general;libobs;general;LSL::lsl;general;Qwt::Qwt;general;qwt-qt5;general;Freetype::Freetype;general;libobs;general;/usr/lib/x86_64-linux-gnu/libfreetype.so;general;Qt5::Widgets;
 
 //Set some quality of life options, e.g. a sensible 'install' directory

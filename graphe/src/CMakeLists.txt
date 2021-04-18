@@ -10,11 +10,11 @@ add_definitions(${Qt5Widgets_DEFINITIONS})
 set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
 
-add_library(Hbeat_image MODULE
+add_library(Hbeat_graphe MODULE
 
 	${Hbeat_graphe_SOURCES})
 
-target_link_libraries(Hbeat_image
+target_link_libraries(Hbeat_graphe
 	libobs
 	LSL::lsl
 	Qwt::Qwt

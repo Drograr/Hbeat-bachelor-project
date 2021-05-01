@@ -27,8 +27,8 @@
 
 
 
-#define S_NAME  "name"
-#define S_ID "id"
+
+
 #define S_START "start"
 #define S_STOP "stop"
 #define S_LINK "link"
@@ -42,8 +42,8 @@
 
 
 
-#define T_NAME  "Name"
-#define T_ID "Id"
+
+
 #define T_START "Start"
 #define T_STOP "Stop"
 #define T_LINK "Link"
@@ -95,10 +95,6 @@ static bool lsl_plugin_start(void* data)
     double framerate = video_output_get_frame_rate(obs_get_video());
 
 
-    //tentative de separer la creation de l'inlet
-	//using namespace lsl;
-    //	std::vector<stream_info> results = resolve_stream("name",   "SimpleStream");
-  	//plugin->inlet = lsl_create_inlet(results[0],300, LSL_NO_PREFERENCE, 1);
 
 
     plugin->linked_lsl = true;
@@ -123,6 +119,8 @@ static bool lsl_plugin_stop( void* data)
     return true;
 }
 
+
+//fonction OBS lancer a la création de la source permetant de creer et afficher les option de la dite source
 static obs_properties_t* lsl_plugin_properties(void* data) {
     //lsl_plugin* plugin_data = (lsl_plugin*)data;
     UNUSED_PARAMETER(data);
@@ -131,21 +129,23 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
 
 
-    obs_properties_add_text(props, S_NAME, T_NAME, OBS_TEXT_DEFAULT);
-    obs_properties_add_text(props, S_ID, T_ID, OBS_TEXT_DEFAULT);
+
+    //fonction permetant de créer le combobox
 
     obs_property_t *p = obs_properties_add_list(props, SETTING_LSL_CHAN,
                   TEXT_LSL_CHAN,
                   OBS_COMBO_TYPE_LIST,
                   OBS_COMBO_FORMAT_STRING);
 
+
+    //detection des différant stream lsl
     std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
     std::map<std::string, lsl::stream_info> found_streams;
-                                // display them
+    //boucle qui remplis le combobox des noms des streams
     for (auto &stream : results) {
               found_streams.emplace(std::make_pair(stream.uid(), stream));
-                           //lsl_name = stream.name();
+
 
       obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
       }
@@ -154,7 +154,7 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
 
 
-
+    //diverse propriétés
     obs_properties_add_bool(props, S_HASTEXT, T_HASTEXT);
     obs_properties_add_bool(props, S_AUTOCOLOR, T_AUTOCOLOR);
     obs_properties_add_int(props, S_FONTSIZE, T_FONTSIZE, 1, 100, 1);
@@ -211,32 +211,12 @@ static void lsl_plugin_destroy(void* data) {
     bfree(srcdata);
 }
 
+
+//Fonction obs qui detecte les changement fait sur l'inteface et met a jours les valeurs
 static void lsl_plugin_update(void* data, obs_data_t* settings)
 {
 
     lsl_plugin* plugin_data = (lsl_plugin*)data;
-
-    const char* id_name = obs_data_get_string(settings, S_ID);
-    const char* name = obs_data_get_string(settings, S_NAME);
-
-
-
-
-    //if (std::string(id_name)==std::string(plugin_data->id_name) || std::string(name) == std::string(plugin_data->name)) {// (strcmp(id_name,plugin_data->id_name)!=0 || strcmp(name, plugin_data->name) != 0) {
-        if (!plugin_data->linked_lsl) {
-            plugin_data->id_name = (char*)id_name;
-            plugin_data->name = (char*)name;
-        }
-        else {
-
-            //lsl_plugin_stop(plugin_data);
-            //plugin_data->id_name = (char*)id_name;
-            //plugin_data->name = (char*)name;
-            //obs_data_set_bool(settings, S_LINK, false);
-        }
-    //}
-
-
 
 
 
@@ -268,7 +248,15 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
             plugin_data->outline_width = 4;
 
 
-      if(plugin_data->beat >100){
+      if(plugin_data->beat >105|| plugin_data->autocolor){
+        plugin_data->color[0] = 0xFF0000FF;
+        plugin_data->color[1] = 0xFF0000FF;
+      }
+      if(plugin_data->beat <95 ||plugin_data->autocolor){
+        plugin_data->color[0] = 0xFFFFFFFF;
+        plugin_data->color[1] = 0xFFFFFFFF;
+      }
+      if(plugin_data->beat <105 || plugin_data->beat  >95 ||plugin_data->autocolor){
         plugin_data->color[0] = 0xFFFFFFFF;
         plugin_data->color[1] = 0xFFFFFFFF;
       }else{
@@ -363,20 +351,7 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
 
         plugin_data->text_enable = false;
 
-        /*
-        for (uint32_t i = 0; i < num_cache_slots; i++) {
-            if (plugin_data->cacheglyphs[i] != NULL) {
-                bfree(plugin_data->cacheglyphs[i]);
-                plugin_data->cacheglyphs[i] = NULL;
-            }
-        }
 
-
-        if (plugin_data->texbuf != NULL)
-            bfree(plugin_data->texbuf);
-        if (plugin_data->colorbuf != NULL)
-            bfree(plugin_data->colorbuf);
-        */
         obs_enter_graphics();
 
         if (plugin_data->tex != NULL) {
@@ -442,6 +417,8 @@ static void lsl_plugin_video(void* data, gs_effect_t* effect) {
 
 }
 
+
+//fonction Obs qui tourne en boucle
 static void lsl_plugin_tick(void* data, float seconds) {
     lsl_plugin* f = (lsl_plugin*)data;
 
@@ -459,25 +436,27 @@ static void lsl_plugin_tick(void* data, float seconds) {
 
     }
 
-
+    //si la chache est cocher le plug-in recupere les info des stream et affiche celui dont
+    //le nom et selectioner dans le combobox
     if (f->text_enable) {
 
-        //std::string ts_str = std::to_string(f->frame_time);
+
         std::string id_str = std::to_string(f->frame_number);
 
 
-
+          //recupére les info de tous les streams qu'il detecte
           std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
         	std::map<std::string, lsl::stream_info> found_streams;
-        	// display them
+
         	int i;
         	i = 0;
+          //boucle qui parcoure les stream detecter et recupére les donner de celui voulue
         	for (auto &stream : results) {
         		found_streams.emplace(std::make_pair(stream.uid(), stream));
         		if (strcmp(f->lsl_chan_name, stream.name().c_str()) == 0)
         		{
-        			int a;
+        			double a;
         			using namespace lsl;
 
         				stream_inlet inlet(results[i]);
@@ -491,30 +470,43 @@ static void lsl_plugin_tick(void* data, float seconds) {
         				inlet.pull_sample(simple);
                 f->beat = simple.front();
 
-
+              // change la couleur en fonction de la valeur des donnée si l'option est cochée
               if (f->autocolor){
-                if(f->beat >100){
+                if(f->beat <95){
                   f->color[0] = 0xFFFFFFFF;
                   f->color[1] = 0xFFFFFFFF;
+                }
+                if(f->beat < 105 ||f->beat >95 ){
+                  f->color[0] = 0xFFFFFFFF;
+                  f->color[1] = 0xFFFFFFFF;
+                }
+
+
+                if(f->beat >105){
+                  f->color[0] = 0xFF0000FF;
+                  f->color[1] = 0xFF0000FF;
                 }
               }
         		}
         		i = i +1;
         	}
 
-
+        //convertie la donnée en string
         std::string ts_str = std::to_string(f->beat);
 
-        std::string txt = "  " + ts_str;
+        std::string txt = " beat: " + ts_str;
         std::wstring wtxt = std::wstring(txt.begin(), txt.end());
         f->text = (wchar_t*)wtxt.c_str();
-
+        //affiche la donnée
         cache_glyphs(f, f->text);
 
         set_up_vertex_buffer(f);
     }
 }
 
+
+//fonction obs qui se alnce a l'initialisation de la source
+//c'est ici que les valeur de lancement sont set
 static void* lsl_plugin_create(obs_data_t* settings, obs_source_t* context) {
 
     struct lsl_plugin* data = (struct lsl_plugin*) bzalloc(sizeof(struct lsl_plugin));
@@ -522,8 +514,8 @@ static void* lsl_plugin_create(obs_data_t* settings, obs_source_t* context) {
 
     lsl_plugin_init();
 
-    obs_data_set_default_string(settings, S_NAME, "OBS");
-    obs_data_set_default_string(settings, S_ID, "ID1");
+
+
     obs_data_set_default_bool(settings, S_HASTEXT, false);
     obs_data_set_default_bool(settings, S_AUTOCOLOR, false);
     obs_data_set_default_bool(settings, S_LINK, false);
@@ -538,7 +530,8 @@ static void* lsl_plugin_create(obs_data_t* settings, obs_source_t* context) {
 }
 
 
-
+//structure contenant les information du plug-in
+//elle est lue a l'initialisatzion d'obs
 struct obs_source_info  create_plugin_info() {
     struct obs_source_info  plugin_info = {};
     plugin_info.id = "Hbeat_text";
@@ -598,7 +591,7 @@ void obs_module_unload(void){
 }
 
 
-
+//register le module pour qu'il soit detecté par obs
 bool obs_module_load(void)
 {
 

@@ -50,9 +50,9 @@ struct lsl_plugin {
 	double frame_time = 0;
 	lsl::stream_outlet* outlet = NULL;
 	//lsl_inlet*  inlet;
-  int beat;
-	char* id_name;
-	char* name;
+  double beat;
+
+
 	bool linked_lsl = false;
 
 	gs_texrender_t* render;

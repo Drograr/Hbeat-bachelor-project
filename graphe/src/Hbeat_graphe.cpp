@@ -12,6 +12,16 @@
 #include <obs.h>
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
+#include <map>
+#include <thread>
+#include <algorithm>
+
+
+
+
+#define SETTING_LSL_CHAN              "LSL_chan"
+
+#define TEXT_LSL_CHAN                obs_module_text("LSL_chan")
 
 #define blog(log_level, format, ...)                    \
 	blog(log_level, "[graphe_source: '%s'] " format, \
@@ -30,10 +40,11 @@ struct graphe_source {
 	float update_time_elapsed;
 	uint64_t last_time;
 	bool active;
-	double x[10];
-	double y[10];
+	double x[100];
+	double y[100];
 	QwtPlot *myplot;
 	QwtPlotCurve *curve;
+		const char *lsl_chan_name;
 
 
 	uint32_t cx=100,cy=100;
@@ -63,6 +74,8 @@ static void graphe_source_update(void *data, obs_data_t *settings)
 	 graphe_source* context = (graphe_source*)data;
 
 
+	 context->lsl_chan_name =
+	 	obs_data_get_string(settings, SETTING_LSL_CHAN);
 
 
 
@@ -79,18 +92,8 @@ static void graphe_source_update(void *data, obs_data_t *settings)
 
 
 
-//context->myplot->show();
 
 
-
-
-
-
-	/* Load the image if the source is persistent or showing */
-	//if (context->persistent || obs_source_showing(context->source))
-		//graphe_source_load(context);
-	//else
-		//graphe_source_unload(context);
 }
 
 static void graphe_source_defaults(obs_data_t *settings)
@@ -111,28 +114,16 @@ static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 	context->curve =  new QwtPlotCurve("curve1");
 
 	context->myplot->show();
-	context->x[0] = 1;
-	context->x[1] = 2;
-	context->x[2] = 3;
-	context->x[3] = 4;
-	context->x[4] = 5;
-	context->x[5] = 6;
-	context->x[6] = 7;
-	context->x[7] = 8;
-	context->x[8] = 9;
-	context->x[9] = 10;
-	context->y[0] = 1;
-	context->y[1] = 2;
-	context->y[2] = 3;
-	context->y[3] = 4;
-	context->y[4] = 5;
-	context->y[5] = 6;
-	context->y[6] = 7;
-	context->y[7] = 8;
-	context->y[8] = 9;
-	context->y[9] = 10;
 
-	context->curve->setSamples(context->x,context->y,10);
+	for (int i = 0;i < 100;i++){
+		context->x[i] = i;
+		context->y[i] = i;
+
+
+
+	}
+
+	context->curve->setSamples(context->x,context->y,100);
 	context->curve->attach(context->myplot);
 	context->myplot->replot();
 
@@ -171,7 +162,7 @@ static void graphe_source_render(void *data, gs_effect_t *effect)
 	graphe_source* context = (graphe_source*)data;
 
 	context->myplot->show();
-	
+
 
 
 
@@ -198,28 +189,48 @@ static void graphe_source_tick(void *data, float seconds)
 
 
 
-	context->x[0] = 1;
-	context->x[1] = 2;
-	context->x[2] = 3;
-	context->x[3] = 4;
-	context->x[4] = 5;
-	context->x[5] = 6;
-	context->x[6] = 7;
-	context->x[7] = 8;
-	context->x[8] = 9;
-	context->x[9] = 10;
-	context->y[0] = context->y[1];
-	context->y[1] = context->y[2];
-	context->y[2] = context->y[3];
-	context->y[3] = context->y[4];
-	context->y[4] = context->y[5];
-	context->y[5] = context->y[6];
-	context->y[6] = context->y[7];
-	context->y[7] = context->y[8];
-	context->y[8] = context->y[9];
-	context->y[9] = context->y[0];
+		std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
-	context->curve->setSamples(context->x,context->y,10);
+		std::map<std::string, lsl::stream_info> found_streams;
+		// display them
+		int i;
+		i = 0;
+		int a;
+		for (auto &stream : results) {
+			found_streams.emplace(std::make_pair(stream.uid(), stream));
+			if (strcmp(context->lsl_chan_name, stream.name().c_str()) == 0)
+			{
+
+				using namespace lsl;
+
+					stream_inlet inlet(results[i]);
+
+
+
+
+						 //receive data
+					std::vector<int> simple;
+
+					inlet.pull_sample(simple);
+					a =  simple.front();
+
+			}
+			i = i +1;
+		}
+
+
+
+
+
+		for (int k = 0;k < 99;k++){
+
+			context->y[k] = 	context->y[k+1];
+
+		}
+
+		context->y[99] = a;
+
+	context->curve->setSamples(context->x,context->y,100);
 	context->curve->attach(context->myplot);
 	context->myplot->replot();
 
@@ -242,6 +253,22 @@ static obs_properties_t *graphe_source_properties(void *data)
 
 
 	obs_properties_t *props = obs_properties_create();
+
+	obs_property_t *p = obs_properties_add_list(props, SETTING_LSL_CHAN,
+								TEXT_LSL_CHAN,
+								OBS_COMBO_TYPE_LIST,
+								OBS_COMBO_FORMAT_STRING);
+
+	std::vector<lsl::stream_info> results = lsl::resolve_streams();
+
+	std::map<std::string, lsl::stream_info> found_streams;
+								// display them
+	for (auto &stream : results) {
+				found_streams.emplace(std::make_pair(stream.uid(), stream));
+					 //lsl_name = stream.name();
+
+	obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
+	}
 
 
 

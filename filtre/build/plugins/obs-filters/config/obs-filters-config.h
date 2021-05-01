@@ -8,4 +8,4 @@
 #define FALSE 0
 #endif
 
-#define NOISEREDUCTION_ENABLED 
+#define NOISEREDUCTION_ENABLED TRUE

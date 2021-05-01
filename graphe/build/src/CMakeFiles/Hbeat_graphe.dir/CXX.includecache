@@ -35,6 +35,12 @@ qwt_plot.h
 -
 qwt_plot_curve.h
 -
+map
+-
+thread
+-
+algorithm
+-
 
 /usr/include/qwt/qwt_global.h
 qglobal.h

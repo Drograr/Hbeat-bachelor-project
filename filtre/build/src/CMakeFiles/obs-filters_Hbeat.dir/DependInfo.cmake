@@ -10,7 +10,9 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
+  "COMPILE_OPUS"
   "HAVE_OBSCONFIG_H"
+  "LIBRNNOISE_ENABLED"
   "obs_filters_Hbeat_EXPORTS"
   )
 
@@ -19,6 +21,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "src"
   "../src"
   "/usr/include/freetype2"
+  "../src/rnnoise/include"
+  "plugins/obs-filters/config"
   "/usr/local/include/obs"
   )
 

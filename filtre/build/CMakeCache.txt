@@ -233,6 +233,12 @@ LSL_DIR:PATH=/usr/local/lib/cmake/LSL
 //The directory containing a CMake configuration file for LibObs.
 LibObs_DIR:PATH=/usr/local/lib/cmake/LibObs
 
+//The directory containing a CMake configuration file for Librnnoise.
+Librnnoise_DIR:PATH=Librnnoise_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Libspeexdsp.
+Libspeexdsp_DIR:PATH=Libspeexdsp_DIR-NOTFOUND
+
 //Value Computed by CMake
 lsl-obs-plugin_BINARY_DIR:STATIC=/home/jan/projet-bachelord-hbeat/filtre/build
 

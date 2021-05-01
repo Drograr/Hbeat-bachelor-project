@@ -2,7 +2,7 @@
 set(Hbeat_text_SOURCES
     obs-convenience.cpp
     text-functionality.cpp
-    lsl_plugin.cpp
+    Hbeat_text.cpp
     obs-convenience.h
     obs-frontend-api.h
     lsl_plugin.h)

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS = -O3 -DNDEBUG -fPIC   -mmmx -msse -msse2 -pthread
 
-CXX_DEFINES = -DCOMPILE_OPUS -DHAVE_OBSCONFIG_H -DLIBRNNOISE_ENABLED -Dobs_filters_Hbeat_EXPORTS
+CXX_DEFINES = -DHAVE_OBSCONFIG_H -Dobs_filters_Hbeat_EXPORTS
 
-CXX_INCLUDES = -I/home/jan/projet-bachelord-hbeat/filtre/build/src -I/home/jan/projet-bachelord-hbeat/filtre/src -I/usr/include/freetype2 -I/home/jan/projet-bachelord-hbeat/filtre/src/rnnoise/include -I/home/jan/projet-bachelord-hbeat/filtre/build/plugins/obs-filters/config -isystem /usr/local/include/obs 
+CXX_INCLUDES = -I/home/jan/projet-bachelord-hbeat/filtre/build/src -I/home/jan/projet-bachelord-hbeat/filtre/src -I/usr/include/freetype2 -isystem /usr/local/include/obs 
 

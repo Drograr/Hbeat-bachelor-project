@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/jan/projet-bachelord-hbeat/image/src/image-source.cpp
+/home/jan/projet-bachelord-hbeat/image/src/Hbeat_image.cpp
 obs-module.h
 -
 graphics/image-file.h

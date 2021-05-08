@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/jan/projet-bachelord-hbeat/image/src/Hbeat_image.cpp" "/home/jan/projet-bachelord-hbeat/image/build/src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o"
   "/home/jan/projet-bachelord-hbeat/image/src/color-source.cpp" "/home/jan/projet-bachelord-hbeat/image/build/src/CMakeFiles/Hbeat_image.dir/color-source.cpp.o"
-  "/home/jan/projet-bachelord-hbeat/image/src/image-source.cpp" "/home/jan/projet-bachelord-hbeat/image/build/src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o"
   "/home/jan/projet-bachelord-hbeat/image/src/obs-slideshow.cpp" "/home/jan/projet-bachelord-hbeat/image/build/src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

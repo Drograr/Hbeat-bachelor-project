@@ -171,15 +171,10 @@ static void image_source_render(void *data, gs_effect_t *effect)
 	if (!context->if2.image.texture)
 		return;
 
-	//const bool linear_srgb = gs_get_linear_srgb();
 
-	//const bool previous = gs_framebuffer_srgb_enabled();
-	//gs_enable_framebuffer_srgb(linear_srgb);
 
 	gs_eparam_t *const param = gs_effect_get_param_by_name(effect, "image");
-	//if (linear_srgb)
-		//gs_effect_set_texture_srgb(param, context->if2.image.texture);
-	//else
+
 		gs_effect_set_texture(param, context->if2.image.texture);
 
 	gs_draw_sprite(context->if2.image.texture, 0, context->if2.image.cx,
@@ -246,16 +241,20 @@ static void image_source_tick(void *data, float seconds)
 
 
 	std::vector<lsl::stream_info> results = lsl::resolve_streams();
+	if(results.empty()){
+		context->if2.image.cy = 200;
+		context->if2.image.cx = 200;
 
+	}else{
 	std::map<std::string, lsl::stream_info> found_streams;
-	// display them
+
 	int i;
 	i = 0;
 	for (auto &stream : results) {
 		found_streams.emplace(std::make_pair(stream.uid(), stream));
 		if (strcmp(context->lsl_chan_name, stream.name().c_str()) == 0)
 		{
-			int a;
+			double a;
 			using namespace lsl;
 
 				stream_inlet inlet(results[i]);
@@ -273,6 +272,7 @@ static void image_source_tick(void *data, float seconds)
 		}
 		i = i +1;
 	}
+}
 
 
 
@@ -322,6 +322,7 @@ static obs_properties_t *image_source_properties(void *data)
 								OBS_COMBO_FORMAT_STRING);
 
 	std::vector<lsl::stream_info> results = lsl::resolve_streams();
+	  if(!results.empty()){
 
 	std::map<std::string, lsl::stream_info> found_streams;
 								// display them
@@ -331,6 +332,7 @@ static obs_properties_t *image_source_properties(void *data)
 
 	obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
   }
+}
 	return props;
 }
 

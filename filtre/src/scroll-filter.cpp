@@ -35,6 +35,7 @@ struct scroll_filter_data {
 
 static const char *scroll_filter_get_name(void *unused)
 {
+	blog(LOG_INFO,"name");
 	UNUSED_PARAMETER(unused);
 	return obs_module_text("Hbeat_ScrollFilter");
 }
@@ -43,7 +44,7 @@ static void *scroll_filter_create(obs_data_t *settings, obs_source_t *context)
 {
 	struct scroll_filter_data* filter = (struct scroll_filter_data*)bzalloc(sizeof(*filter));
 	char *effect_path = obs_module_file("crop_filter.effect");
-
+	blog(LOG_INFO,"message1");
 	filter->context = context;
 
 	obs_enter_graphics();
@@ -51,20 +52,21 @@ static void *scroll_filter_create(obs_data_t *settings, obs_source_t *context)
 	obs_leave_graphics();
 
 	bfree(effect_path);
-
+blog(LOG_INFO,"message2");
 	if (!filter->effect) {
 		bfree(filter);
 		return NULL;
 	}
-
+  blog(LOG_INFO,"message3");
 	filter->param_add =
 		gs_effect_get_param_by_name(filter->effect, "add_val");
 	filter->param_mul =
 		gs_effect_get_param_by_name(filter->effect, "mul_val");
 	filter->param_image =
 		gs_effect_get_param_by_name(filter->effect, "image");
-
+	blog(LOG_INFO,"message4");
 	obs_source_update(context, settings);
+	blog(LOG_INFO,"message");
 	return filter;
 }
 
@@ -260,8 +262,10 @@ static void scroll_filter_show(void *data)
 }
 
 struct obs_source_info create_plugin_info() {
+	blog(LOG_INFO,"create_plugin");
 	struct obs_source_info Hbeat_scroll_filter = {};
 	Hbeat_scroll_filter.id = "Hbeat_scroll";
+
 	Hbeat_scroll_filter.type = OBS_SOURCE_TYPE_FILTER;
 	Hbeat_scroll_filter.output_flags = OBS_SOURCE_VIDEO;
 	Hbeat_scroll_filter.get_name = scroll_filter_get_name;
@@ -275,6 +279,7 @@ struct obs_source_info create_plugin_info() {
 	Hbeat_scroll_filter.get_width = scroll_filter_width;
 	Hbeat_scroll_filter.get_height = scroll_filter_height;
 	Hbeat_scroll_filter.show = scroll_filter_show;
+	blog(LOG_INFO,"create plugin 2");
 	return Hbeat_scroll_filter;
 }
 

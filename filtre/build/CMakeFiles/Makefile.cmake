@@ -12,7 +12,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "../src/CMakeLists.txt"
-  "../src/obs-filters-config.h.in"
   "/usr/local/lib/cmake/LSL/LSLCMake.cmake"
   "/usr/local/lib/cmake/LSL/LSLConfig.cmake"
   "/usr/local/lib/cmake/LSL/LSLConfigVersion.cmake"

@@ -140,7 +140,7 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
     //detection des différant stream lsl
     std::vector<lsl::stream_info> results = lsl::resolve_streams();
-
+      if(!results.empty()){
     std::map<std::string, lsl::stream_info> found_streams;
     //boucle qui remplis le combobox des noms des streams
     for (auto &stream : results) {
@@ -149,6 +149,7 @@ static obs_properties_t* lsl_plugin_properties(void* data) {
 
       obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
       }
+    }
 
 
 
@@ -248,17 +249,17 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
             plugin_data->outline_width = 4;
 
 
-      if(plugin_data->beat >105|| plugin_data->autocolor){
+      if(plugin_data->beat >105&& plugin_data->autocolor){
         plugin_data->color[0] = 0xFF0000FF;
         plugin_data->color[1] = 0xFF0000FF;
       }
-      if(plugin_data->beat <95 ||plugin_data->autocolor){
-        plugin_data->color[0] = 0xFFFFFFFF;
-        plugin_data->color[1] = 0xFFFFFFFF;
+      if(plugin_data->beat <95 &&plugin_data->autocolor){
+        plugin_data->color[0] = 0xFF00FF00;
+        plugin_data->color[1] = 0xFF00FF00;
       }
-      if(plugin_data->beat <105 || plugin_data->beat  >95 ||plugin_data->autocolor){
-        plugin_data->color[0] = 0xFFFFFFFF;
-        plugin_data->color[1] = 0xFFFFFFFF;
+      if(plugin_data->beat <105 && plugin_data->beat  >95 && plugin_data->autocolor){
+        plugin_data->color[0] = 0xFF00FFFF;
+        plugin_data->color[1] = 0xFF00FFFF;
       }else{
 
         color[0] = (uint32_t)obs_data_get_int(settings, S_COLOR);
@@ -448,7 +449,9 @@ static void lsl_plugin_tick(void* data, float seconds) {
           std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
         	std::map<std::string, lsl::stream_info> found_streams;
-
+          if(results.empty()){
+            f->beat = 0;
+          }else{
         	int i;
         	i = 0;
           //boucle qui parcoure les stream detecter et recupére les donner de celui voulue
@@ -473,12 +476,12 @@ static void lsl_plugin_tick(void* data, float seconds) {
               // change la couleur en fonction de la valeur des donnée si l'option est cochée
               if (f->autocolor){
                 if(f->beat <95){
-                  f->color[0] = 0xFFFFFFFF;
-                  f->color[1] = 0xFFFFFFFF;
+                  f->color[0] = 0xFF00FF00;
+                  f->color[1] = 0xFF00FF00;
                 }
-                if(f->beat < 105 ||f->beat >95 ){
-                  f->color[0] = 0xFFFFFFFF;
-                  f->color[1] = 0xFFFFFFFF;
+                if(f->beat < 105 && f->beat >95 ){
+                  f->color[0] = 0xFF00FFFF;
+                  f->color[1] = 0xFF00FFFF;
                 }
 
 
@@ -490,6 +493,7 @@ static void lsl_plugin_tick(void* data, float seconds) {
         		}
         		i = i +1;
         	}
+        }
 
         //convertie la donnée en string
         std::string ts_str = std::to_string(f->beat);

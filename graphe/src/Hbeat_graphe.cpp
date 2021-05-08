@@ -23,6 +23,10 @@
 
 #define TEXT_LSL_CHAN                obs_module_text("LSL_chan")
 
+#define SETTING_NPOINTS              "N_Points"
+
+#define TEXT_NPOINTS               obs_module_text("N_Points")
+
 #define blog(log_level, format, ...)                    \
 	blog(log_level, "[graphe_source: '%s'] " format, \
 	     obs_source_get_name(context->source), ##__VA_ARGS__)
@@ -42,9 +46,12 @@ struct graphe_source {
 	bool active;
 	double x[100];
 	double y[100];
+	double x_50[50];
+	double y_50[50];
 	QwtPlot *myplot;
 	QwtPlotCurve *curve;
 		const char *lsl_chan_name;
+		int lsl_Npoints;
 
 
 	uint32_t cx=100,cy=100;
@@ -78,14 +85,8 @@ static void graphe_source_update(void *data, obs_data_t *settings)
 	 	obs_data_get_string(settings, SETTING_LSL_CHAN);
 
 
-
-
-
-
-
-
-
-
+		context->lsl_Npoints =
+ 	 	obs_data_get_int(settings, SETTING_NPOINTS);
 
 
 
@@ -118,6 +119,14 @@ static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 	for (int i = 0;i < 100;i++){
 		context->x[i] = i;
 		context->y[i] = i;
+
+
+
+	}
+
+	for (int i = 0;i < 50;i++){
+		context->x_50[i] = i;
+		context->y_50[i] = i;
 
 
 
@@ -219,9 +228,26 @@ static void graphe_source_tick(void *data, float seconds)
 		}
 
 
+		if(context->lsl_Npoints == 50){
+				blog(LOG_INFO,"name");
+
+			for (int k = 0;k < 49;k++){
+
+				context->y_50[k] = 	context->y_50[k+1];
+
+			}
+
+			context->y_50[49] = a;
+
+		context->curve->setSamples(context->x_50,context->y_50,50);
+		context->curve->attach(context->myplot);
+		context->myplot->replot();
 
 
 
+
+		}else{
+  blog(LOG_INFO,"name2");
 		for (int k = 0;k < 99;k++){
 
 			context->y[k] = 	context->y[k+1];
@@ -233,6 +259,7 @@ static void graphe_source_tick(void *data, float seconds)
 	context->curve->setSamples(context->x,context->y,100);
 	context->curve->attach(context->myplot);
 	context->myplot->replot();
+}
 
 
 
@@ -269,6 +296,16 @@ static obs_properties_t *graphe_source_properties(void *data)
 
 	obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
 	}
+
+	obs_property_t *n = obs_properties_add_list(props, SETTING_NPOINTS,
+								TEXT_NPOINTS,
+								OBS_COMBO_TYPE_LIST,
+								OBS_COMBO_FORMAT_INT);
+
+	obs_property_list_add_int(n, "10", 10);
+	obs_property_list_add_int(n, "25", 25);
+	obs_property_list_add_int(n, "50", 50);
+	obs_property_list_add_int(n, "100", 100);
 
 
 

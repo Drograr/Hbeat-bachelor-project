@@ -57,18 +57,18 @@ include src/CMakeFiles/Hbeat_image.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/Hbeat_image.dir/flags.make
 
-src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o: src/CMakeFiles/Hbeat_image.dir/flags.make
-src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o: ../src/image-source.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jan/projet-bachelord-hbeat/image/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o"
-	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Hbeat_image.dir/image-source.cpp.o -c /home/jan/projet-bachelord-hbeat/image/src/image-source.cpp
+src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o: src/CMakeFiles/Hbeat_image.dir/flags.make
+src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o: ../src/Hbeat_image.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jan/projet-bachelord-hbeat/image/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o"
+	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o -c /home/jan/projet-bachelord-hbeat/image/src/Hbeat_image.cpp
 
-src/CMakeFiles/Hbeat_image.dir/image-source.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hbeat_image.dir/image-source.cpp.i"
-	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jan/projet-bachelord-hbeat/image/src/image-source.cpp > CMakeFiles/Hbeat_image.dir/image-source.cpp.i
+src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.i"
+	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jan/projet-bachelord-hbeat/image/src/Hbeat_image.cpp > CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.i
 
-src/CMakeFiles/Hbeat_image.dir/image-source.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hbeat_image.dir/image-source.cpp.s"
-	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jan/projet-bachelord-hbeat/image/src/image-source.cpp -o CMakeFiles/Hbeat_image.dir/image-source.cpp.s
+src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.s"
+	cd /home/jan/projet-bachelord-hbeat/image/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jan/projet-bachelord-hbeat/image/src/Hbeat_image.cpp -o CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.s
 
 src/CMakeFiles/Hbeat_image.dir/color-source.cpp.o: src/CMakeFiles/Hbeat_image.dir/flags.make
 src/CMakeFiles/Hbeat_image.dir/color-source.cpp.o: ../src/color-source.cpp
@@ -98,14 +98,14 @@ src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.s: cmake_force
 
 # Object files for target Hbeat_image
 Hbeat_image_OBJECTS = \
-"CMakeFiles/Hbeat_image.dir/image-source.cpp.o" \
+"CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o" \
 "CMakeFiles/Hbeat_image.dir/color-source.cpp.o" \
 "CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.o"
 
 # External object files for target Hbeat_image
 Hbeat_image_EXTERNAL_OBJECTS =
 
-src/libHbeat_image.so: src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o
+src/libHbeat_image.so: src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o
 src/libHbeat_image.so: src/CMakeFiles/Hbeat_image.dir/color-source.cpp.o
 src/libHbeat_image.so: src/CMakeFiles/Hbeat_image.dir/obs-slideshow.cpp.o
 src/libHbeat_image.so: src/CMakeFiles/Hbeat_image.dir/build.make

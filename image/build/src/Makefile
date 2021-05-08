@@ -125,6 +125,33 @@ Hbeat_image/fast:
 	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/build
 .PHONY : Hbeat_image/fast
 
+Hbeat_image.o: Hbeat_image.cpp.o
+
+.PHONY : Hbeat_image.o
+
+# target to build an object file
+Hbeat_image.cpp.o:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.o
+.PHONY : Hbeat_image.cpp.o
+
+Hbeat_image.i: Hbeat_image.cpp.i
+
+.PHONY : Hbeat_image.i
+
+# target to preprocess a source file
+Hbeat_image.cpp.i:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.i
+.PHONY : Hbeat_image.cpp.i
+
+Hbeat_image.s: Hbeat_image.cpp.s
+
+.PHONY : Hbeat_image.s
+
+# target to generate assembly for a file
+Hbeat_image.cpp.s:
+	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/Hbeat_image.cpp.s
+.PHONY : Hbeat_image.cpp.s
+
 color-source.o: color-source.cpp.o
 
 .PHONY : color-source.o
@@ -151,33 +178,6 @@ color-source.s: color-source.cpp.s
 color-source.cpp.s:
 	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/color-source.cpp.s
 .PHONY : color-source.cpp.s
-
-image-source.o: image-source.cpp.o
-
-.PHONY : image-source.o
-
-# target to build an object file
-image-source.cpp.o:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.o
-.PHONY : image-source.cpp.o
-
-image-source.i: image-source.cpp.i
-
-.PHONY : image-source.i
-
-# target to preprocess a source file
-image-source.cpp.i:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.i
-.PHONY : image-source.cpp.i
-
-image-source.s: image-source.cpp.s
-
-.PHONY : image-source.s
-
-# target to generate assembly for a file
-image-source.cpp.s:
-	cd /home/jan/projet-bachelord-hbeat/image/build && $(MAKE) -f src/CMakeFiles/Hbeat_image.dir/build.make src/CMakeFiles/Hbeat_image.dir/image-source.cpp.s
-.PHONY : image-source.cpp.s
 
 obs-slideshow.o: obs-slideshow.cpp.o
 
@@ -215,12 +215,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Hbeat_image"
+	@echo "... Hbeat_image.o"
+	@echo "... Hbeat_image.i"
+	@echo "... Hbeat_image.s"
 	@echo "... color-source.o"
 	@echo "... color-source.i"
 	@echo "... color-source.s"
-	@echo "... image-source.o"
-	@echo "... image-source.i"
-	@echo "... image-source.s"
 	@echo "... obs-slideshow.o"
 	@echo "... obs-slideshow.i"
 	@echo "... obs-slideshow.s"

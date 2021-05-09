@@ -17,7 +17,9 @@
 #include <algorithm>
 
 
+#define S_HASTEXT "link"
 
+#define T_HASTEXT "Enable link"
 
 #define SETTING_LSL_CHAN              "LSL_chan"
 
@@ -48,10 +50,15 @@ struct graphe_source {
 	double y[100];
 	double x_50[50];
 	double y_50[50];
+	double x_25[25];
+	double y_25[25];
+	double x_10[10];
+	double y_10[10];
 	QwtPlot *myplot;
 	QwtPlotCurve *curve;
 		const char *lsl_chan_name;
 		int lsl_Npoints;
+		bool link;
 
 
 	uint32_t cx=100,cy=100;
@@ -87,6 +94,8 @@ static void graphe_source_update(void *data, obs_data_t *settings)
 
 		context->lsl_Npoints =
  	 	obs_data_get_int(settings, SETTING_NPOINTS);
+
+			context->link =obs_data_get_bool(settings, S_HASTEXT);
 
 
 
@@ -127,6 +136,18 @@ static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 	for (int i = 0;i < 50;i++){
 		context->x_50[i] = i;
 		context->y_50[i] = i;
+
+	}
+
+	for (int i = 0;i < 25;i++){
+		context->x_25[i] = i;
+		context->y_25[i] = i;
+
+	}
+
+	for (int i = 0;i < 10;i++){
+		context->x_10[i] = i;
+		context->y_10[i] = i;
 
 
 
@@ -196,7 +217,7 @@ static void graphe_source_tick(void *data, float seconds)
 		}
 	}
 
-
+if(context->link){ 
 
 		std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
@@ -229,7 +250,7 @@ static void graphe_source_tick(void *data, float seconds)
 
 
 		if(context->lsl_Npoints == 50){
-				blog(LOG_INFO,"name");
+
 
 			for (int k = 0;k < 49;k++){
 
@@ -246,8 +267,48 @@ static void graphe_source_tick(void *data, float seconds)
 
 
 
-		}else{
-  blog(LOG_INFO,"name2");
+		}
+
+		if(context->lsl_Npoints == 25){
+
+
+			for (int k = 0;k < 24;k++){
+
+				context->y_25[k] = 	context->y_25[k+1];
+
+			}
+
+			context->y_25[24] = a;
+
+		context->curve->setSamples(context->x_25,context->y_25,25);
+		context->curve->attach(context->myplot);
+		context->myplot->replot();
+
+
+
+
+		}
+		if(context->lsl_Npoints == 10){
+
+
+			for (int k = 0;k < 9;k++){
+
+				context->y_10[k] = 	context->y_10[k+1];
+
+			}
+
+			context->y_10[9] = a;
+
+		context->curve->setSamples(context->x_10,context->y_10,10);
+		context->curve->attach(context->myplot);
+		context->myplot->replot();
+
+
+
+
+		}
+		if(context->lsl_Npoints == 100){
+
 		for (int k = 0;k < 99;k++){
 
 			context->y[k] = 	context->y[k+1];
@@ -262,7 +323,7 @@ static void graphe_source_tick(void *data, float seconds)
 }
 
 
-
+}
 
 
 
@@ -280,6 +341,7 @@ static obs_properties_t *graphe_source_properties(void *data)
 
 
 	obs_properties_t *props = obs_properties_create();
+	obs_properties_add_bool(props, S_HASTEXT, T_HASTEXT);
 
 	obs_property_t *p = obs_properties_add_list(props, SETTING_LSL_CHAN,
 								TEXT_LSL_CHAN,

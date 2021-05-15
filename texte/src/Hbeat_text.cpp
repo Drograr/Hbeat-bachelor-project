@@ -61,7 +61,7 @@
 FT_Library ft2_lib;
 OBS_DECLARE_MODULE()
 
-//OBS_MODULE_USE_DEFAULT_LOCALE("lsl_plugin", "en-US")
+
 
 MODULE_EXPORT const char* obs_module_description(void)
 {
@@ -122,7 +122,7 @@ static bool lsl_plugin_stop( void* data)
 
 //fonction OBS lancer a la création de la source permetant de creer et afficher les option de la dite source
 static obs_properties_t* lsl_plugin_properties(void* data) {
-    //lsl_plugin* plugin_data = (lsl_plugin*)data;
+
     UNUSED_PARAMETER(data);
 
     obs_properties_t* props = obs_properties_create();
@@ -384,10 +384,11 @@ static void lsl_plugin_update(void* data, obs_data_t* settings)
 
 }
 
+//fonction afichant le nom du plugin au logiciel obs
 static const char* lsl_plugin_name(void* unused)
 {
     UNUSED_PARAMETER(unused);
-    return "Hbeat_text";// obs_module_text("LSL plugin");
+    return "Hbeat_text";
 }
 
 static void lsl_plugin_video(void* data, gs_effect_t* effect) {

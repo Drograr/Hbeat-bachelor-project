@@ -116,6 +116,7 @@ static void graphe_source_defaults(obs_data_t *settings)
 static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 {
 	struct graphe_source* context = (graphe_source*) bzalloc(sizeof(struct graphe_source));
+	//initialisation du graphe
 	context->source = source;
 	context->persistent = true;
 	context->myplot = new QwtPlot;
@@ -125,11 +126,11 @@ static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 
 	context->myplot->show();
 
+
+//initialisation des différent graphes a 0
 	for (int i = 0;i < 100;i++){
 		context->x[i] = i;
 		context->y[i] = i;
-
-
 
 	}
 
@@ -152,7 +153,7 @@ static void *graphe_source_create(obs_data_t *settings, obs_source_t *source)
 
 
 	}
-
+ //liaison des valeurs et affichache du graphe
 	context->curve->setSamples(context->x,context->y,100);
 	context->curve->attach(context->myplot);
 	context->myplot->replot();
@@ -217,12 +218,11 @@ static void graphe_source_tick(void *data, float seconds)
 		}
 	}
 
-if(context->link){ 
+if(context->link){
 
 		std::vector<lsl::stream_info> results = lsl::resolve_streams();
 
 		std::map<std::string, lsl::stream_info> found_streams;
-		// display them
 		int i;
 		i = 0;
 		int a;
@@ -235,10 +235,6 @@ if(context->link){
 
 					stream_inlet inlet(results[i]);
 
-
-
-
-						 //receive data
 					std::vector<int> simple;
 
 					inlet.pull_sample(simple);
@@ -248,7 +244,7 @@ if(context->link){
 			i = i +1;
 		}
 
-
+		//mise a jour des tasbleau en fonctio du nombre de points choisits
 		if(context->lsl_Npoints == 50){
 
 
@@ -259,7 +255,7 @@ if(context->link){
 			}
 
 			context->y_50[49] = a;
-
+		//atache les nouvelle valeur au graphe
 		context->curve->setSamples(context->x_50,context->y_50,50);
 		context->curve->attach(context->myplot);
 		context->myplot->replot();
@@ -358,7 +354,7 @@ static obs_properties_t *graphe_source_properties(void *data)
 
 	obs_property_list_add_string(p, stream.name().c_str(), stream.name().c_str());
 	}
-
+//combobox de INT
 	obs_property_t *n = obs_properties_add_list(props, SETTING_NPOINTS,
 								TEXT_NPOINTS,
 								OBS_COMBO_TYPE_LIST,

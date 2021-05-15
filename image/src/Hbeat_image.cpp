@@ -29,6 +29,8 @@
 #define info(format, ...) blog(LOG_INFO, format, ##__VA_ARGS__)
 #define warn(format, ...) blog(LOG_WARNING, format, ##__VA_ARGS__)
 
+
+//structure contenant les valeurs global du plugin
 struct image_source {
 	obs_source_t *source;
 
@@ -41,7 +43,7 @@ struct image_source {
 	const char *lsl_chan_name;
 
 	gs_image_file2_t if2;
-//	obs_property_t *p;
+
 };
 
 static time_t get_modified_timestamp(const char *filename)
@@ -55,9 +57,10 @@ static time_t get_modified_timestamp(const char *filename)
 static const char *image_source_get_name(void *unused)
 {
 	UNUSED_PARAMETER(unused);
-	return "Hbeat_image";//obs_module_text("ImageInput");
+	return "Hbeat_image";
 }
 
+//fonction recupérant les information de l'image
 static void image_source_load(struct image_source *context)
 {
 	char *file = context->file;
@@ -87,6 +90,7 @@ static void image_source_unload(struct image_source *context)
 	gs_image_file2_free(&context->if2);
 	obs_leave_graphics();
 }
+
 
 static void image_source_update(void *data, obs_data_t *settings)
 {
@@ -225,7 +229,7 @@ static void image_source_tick(void *data, float seconds)
 
 		return;
 	}
-
+//si l'image est un gif lance l'annimation
 	if (context->last_time && context->if2.image.is_animated_gif) {
 		uint64_t elapsed = frame_time - context->last_time;
 		bool updated = gs_image_file2_tick(&context->if2, elapsed);
@@ -239,7 +243,7 @@ static void image_source_tick(void *data, float seconds)
 
 
 
-
+	//récupere les valeur du stream lsl
 	std::vector<lsl::stream_info> results = lsl::resolve_streams();
 	if(results.empty()){
 		context->if2.image.cy = 200;
@@ -267,6 +271,7 @@ static void image_source_tick(void *data, float seconds)
 
 				inlet.pull_sample(simple);
 				a =  simple.front();
+				//change les coté de l'image en fonction de la valeur donnée
 				context->if2.image.cy = a;
 				context->if2.image.cx = a;
 		}

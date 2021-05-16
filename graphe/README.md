@@ -1,13 +1,14 @@
 OBS plugin
 ==========
 
-This plugin implements an OBS filter which continuously sends the frame number of the recorded video to LSL in order to synchronize the video with other signals.
+This plugin implements an OBS filter which continuously receive number .
 
 ## Compiling
 ### Prerequisites
 - CMake
-- [liblsl](https://github.com/sccn/liblsl/releases/) (we have tested with version 1.13.1)
+- [liblsl](https://github.com/sccn/liblsl/releases/) 
 - a working development environment for OBS Studio installed on your computer.
+- freetype
 
 ### Windows
 1. Build obs-studio following the [instructions](https://obsproject.com/wiki/install-instructions#windows-build-directions)
@@ -32,12 +33,14 @@ On Debian/Ubuntu :
 git clone https://gitlab.unige.ch/sims/lsl-modules/obs-plugin.git
 cd obs-plugin
 mkdir build && cd build
-cmake (-DLIBOBS_INCLUDE_DIR="<path to the libobs sub-folder in obs-studio's source code>")(voir si toujours utile) -DCMAKE_INSTALL_PREFIX=/usr ..
-make -j4
-sudo make install(ne marche pas et en aie pas eux besoin)
+cmake ..
+make 
+
 ```
-1. Copy the `lsl_plugin.so` to /usr/lib/obs-plugins/
+if cmake have some problems finding some libraries use the command "ccmake .." in the build file and put the path for the mission libraries.
+
+1. Copy the `.so` to /usr/lib/obs-plugins/ or /usr/local/lib/obs-plugin depending of your installation of Obs
 2. also copy the contents of the `obsplugin/data/` directory to the `bin` directory of obs-studio (where the obs-studio executable is located)
-(pour l'instant il faut lancer obs depuis le bin)
+
 ## Using the plugin
-This plugin implements a source filter in obs. To use it select the **scene** containing the sources you wish to record and add the LSL filter to it.
+This plugin implements a source filter in obs. To use it select the **scene** containing the sources you wish to record and add the source.

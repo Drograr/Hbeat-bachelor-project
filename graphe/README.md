@@ -1,14 +1,14 @@
 OBS plugin
 ==========
 
-This plugin implements an OBS filter which continuously receive number .
+This plugin implements an OBS filter which continuously receive numbers and displays them inta a graphe. .
 
 ## Compiling
 ### Prerequisites
 - CMake
 - [liblsl](https://github.com/sccn/liblsl/releases/) 
 - a working development environment for OBS Studio installed on your computer.
-- freetype
+- qwt-plot
 
 ### Windows
 1. Build obs-studio following the [instructions](https://obsproject.com/wiki/install-instructions#windows-build-directions)
@@ -40,7 +40,7 @@ make
 if cmake have some problems finding some libraries use the command "ccmake .." in the build file and put the path for the mission libraries.
 
 1. Copy the `.so` to /usr/lib/obs-plugins/ or /usr/local/lib/obs-plugin depending of your installation of Obs
-2. also copy the contents of the `obsplugin/data/` directory to the `bin` directory of obs-studio (where the obs-studio executable is located)
+
 
 ## Using the plugin
 This plugin implements a source filter in obs. To use it select the **scene** containing the sources you wish to record and add the source.

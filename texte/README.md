@@ -36,6 +36,8 @@ cmake ..
 make 
 
 ```
+if cmake have some problems finding some libraries use the command "ccmake .." in the build file and put the path for the mission libraries.
+
 1. Copy the `.so` to /usr/lib/obs-plugins/ or /usr/local/lib/obs-plugin depending of your installation of Obs
 2. also copy the contents of the `obsplugin/data/` directory to the `bin` directory of obs-studio (where the obs-studio executable is located)
 

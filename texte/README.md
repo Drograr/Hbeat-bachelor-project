@@ -6,8 +6,9 @@ This plugin implements an OBS filter which continuously sends the frame number o
 ## Compiling
 ### Prerequisites
 - CMake
-- [liblsl](https://github.com/sccn/liblsl/releases/) (we have tested with version 1.13.1)
+- [liblsl](https://github.com/sccn/liblsl/releases/) 
 - a working development environment for OBS Studio installed on your computer.
+- freetype
 
 ### Windows
 1. Build obs-studio following the [instructions](https://obsproject.com/wiki/install-instructions#windows-build-directions)

@@ -1,7 +1,7 @@
 OBS plugin
 ==========
 
-This plugin implements an OBS filter which continuously sends the frame number of the recorded video to LSL in order to synchronize the video with other signals.
+This plugin implements an OBS filter which continuously get number and use them to change size of a image or a gif.
 
 ## Compiling
 ### Prerequisites

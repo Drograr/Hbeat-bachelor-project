@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -O3 -DNDEBUG  -shared  -o libobs-filters.so CMakeFiles/obs-filters.dir/scroll-filter.c.o  -Wl,-rpath,/usr/local/lib /usr/local/lib/libobs.so.0 -pthread 

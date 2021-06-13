@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared  -o libobs-filters_Hbeat.so CMakeFiles/obs-filters_Hbeat.dir/scroll-filter.cpp.o  -Wl,-rpath,/usr/local/lib /usr/local/lib/libobs.so.0 -pthread 

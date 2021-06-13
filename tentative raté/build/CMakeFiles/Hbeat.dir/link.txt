@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC   -shared  -o libHbeat.so CMakeFiles/Hbeat.dir/Hbeat.cpp.o -Wl,-rpath,/home/dirkx/OBS/obs-studio/build/libobs:/home/dirkx/LSL/liblsl-1.14.0/build /home/dirkx/OBS/obs-studio/build/libobs/libobs.so.0 /home/dirkx/LSL/liblsl-1.14.0/build/liblsl.so.1.14.0 -pthread -lLSL::lslobj 
